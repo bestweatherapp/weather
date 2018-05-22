@@ -14,6 +14,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    let label: UITextView = {
+        let text = UITextView()
+        return text
+    }()
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
