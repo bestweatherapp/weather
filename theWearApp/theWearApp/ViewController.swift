@@ -9,6 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    let label: UITextView = {
+        let text = UITextView()
+        return text
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
