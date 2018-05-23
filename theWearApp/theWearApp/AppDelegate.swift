@@ -15,7 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = UIWindow()
+        window?.makeKeyAndVisible()
+        print(UserDefaults.standard.bool(forKey: "firstTimeOpened"))
+        if (UserDefaults.standard.bool(forKey: "firstTimeOpened")) { // Show ViewController
+            window?.rootViewController = ViewController()
+        } else { // Show WelcomeViewContoller
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .horizontal
+            let welcomePage = WelcomePage(collectionViewLayout: layout)
+            window?.rootViewController = welcomePage
+        }
         return true
     }
 

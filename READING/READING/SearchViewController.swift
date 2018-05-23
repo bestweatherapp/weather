@@ -27,11 +27,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         cities?.append(self.suitableCities[indexPath.row])
-        
         dismiss(animated: true, completion: nil)
     }
-    
-    
+
     let suitableCititesTableView: UITableView = {
         let tableView = UITableView()
         tableView.showsVerticalScrollIndicator = false

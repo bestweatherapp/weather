@@ -1,11 +1,4 @@
-//
-//  ViewController.swift
-//  READING
-//
-//  Created by Валентина on 07.05.18.
-//  Copyright © 2018 Валентина. All rights reserved.
-//
-//it works, bitches
+
 import UIKit
 import Foundation
 import CoreLocation
@@ -55,7 +48,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 class ViewController:  UIViewController, CLLocationManagerDelegate  {
     
-    var onceOnly = false
     var locationManager = CLLocationManager()
     var ResultForecastCity = ForecastCity()
     var row : Int = 0
@@ -64,7 +56,7 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
     // Добавил такую же переменную как и AllTemps и AllDates
     var allHours = ["","","","","","","","","","","",""]
     var allHourlyTemps = ["","","","","","","","","","","",""]
-    var currentForecastCity = ForecastCity() // Full Info
+    var currentForecastCity = ForecastCity() // полная информация
     var CitySelectedFromPreferences = ""
     
     // DateLabel
@@ -576,13 +568,5 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
         forecastCollectionView.dataSource = self
     }
 }
-//extension UITextView {
-//    func centerVertically() {
-//        let fittingSize = CGSize(width: bounds.width, height: CGFloat.greatestFiniteMagnitude)
-//        let size = sizeThatFits(fittingSize)
-//        let topOffset = (bounds.size.height - size.height * zoomScale) / 2
-//        let positiveTopOffset = max(1, topOffset)
-//        contentOffset.y = -positiveTopOffset
-//    }
-//}
+
 
