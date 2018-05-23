@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BA141E2320A7901B00F056E4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA141E2220A7901B00F056E4 /* SettingsViewController.swift */; };
+		BA66924420A0CAB1006D6E5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA66924320A0CAB1006D6E5D /* AppDelegate.swift */; };
+		BA66924620A0CAB1006D6E5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA66924520A0CAB1006D6E5D /* ViewController.swift */; };
+		BA66924920A0CAB1006D6E5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA66924720A0CAB1006D6E5D /* Main.storyboard */; };
+		BA66924B20A0CAB5006D6E5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA66924A20A0CAB5006D6E5D /* Assets.xcassets */; };
+		BA66924E20A0CAB5006D6E5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA66924C20A0CAB5006D6E5D /* LaunchScreen.storyboard */; };
+		BA66925620A0D406006D6E5D /* DayDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA66925520A0D406006D6E5D /* DayDetailsViewController.swift */; };
+		BA66925820A0D487006D6E5D /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA66925720A0D487006D6E5D /* Weather.swift */; };
+		BA66925A20A0E917006D6E5D /* EachDayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA66925920A0E917006D6E5D /* EachDayTableViewCell.swift */; };
+		BA66926220A24C75006D6E5D /* EachHourCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA66926120A24C75006D6E5D /* EachHourCollectionViewCell.swift */; };
+		BA84963920A585BE001F57B9 /* CitiesCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84963820A585BE001F57B9 /* CitiesCellTableViewCell.swift */; };
+		BA84963B20A58A57001F57B9 /* cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84963A20A58A57001F57B9 /* cities.swift */; };
+		BA84963D20A58D76001F57B9 /* SearchCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84963C20A58D76001F57B9 /* SearchCityViewController.swift */; };
+		BA8697CA20A42E02007DEC3B /* SF-Pro-Display-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697AC20A42E01007DEC3B /* SF-Pro-Display-Thin.otf */; };
+		BA8697CB20A42E02007DEC3B /* SF-Pro-Display-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697AD20A42E01007DEC3B /* SF-Pro-Display-SemiboldItalic.otf */; };
+		BA8697CC20A42E02007DEC3B /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697AE20A42E01007DEC3B /* SF-Pro-Text-Heavy.otf */; };
+		BA8697CD20A42E02007DEC3B /* SF-Pro-Display-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697AF20A42E01007DEC3B /* SF-Pro-Display-RegularItalic.otf */; };
+		BA8697CE20A42E02007DEC3B /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697B020A42E01007DEC3B /* SF-Pro-Display-Light.otf */; };
+		BA8697CF20A42E02007DEC3B /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697B120A42E01007DEC3B /* SF-Pro-Display-Regular.otf */; };
+		BA8697D020A42E02007DEC3B /* SF-Pro-Text-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697B220A42E01007DEC3B /* SF-Pro-Text-MediumItalic.otf */; };
+		BA8697D120A42E02007DEC3B /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697B320A42E01007DEC3B /* SF-Pro-Display-Bold.otf */; };
+		BA8697D220A42E02007DEC3B /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697B420A42E01007DEC3B /* SF-Pro-Display-Medium.otf */; };
+		BA8697D320A42E02007DEC3B /* SF-Pro-Display-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697B520A42E01007DEC3B /* SF-Pro-Display-Heavy.otf */; };
+		BA8697D420A42E02007DEC3B /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697B620A42E01007DEC3B /* SF-Pro-Text-Light.otf */; };
+		BA8697D520A42E02007DEC3B /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697B720A42E01007DEC3B /* SF-Pro-Display-Semibold.otf */; };
+		BA8697D620A42E02007DEC3B /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697B820A42E01007DEC3B /* SF-Pro-Text-Regular.otf */; };
+		BA8697D720A42E02007DEC3B /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697B920A42E01007DEC3B /* SF-Pro-Text-Bold.otf */; };
+		BA8697D820A42E02007DEC3B /* SF-Pro-Display-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697BA20A42E01007DEC3B /* SF-Pro-Display-MediumItalic.otf */; };
+		BA8697D920A42E02007DEC3B /* SF-Pro-Display-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697BB20A42E01007DEC3B /* SF-Pro-Display-HeavyItalic.otf */; };
+		BA8697DA20A42E02007DEC3B /* SF-Pro-Display-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697BC20A42E01007DEC3B /* SF-Pro-Display-Ultralight.otf */; };
+		BA8697DB20A42E02007DEC3B /* SF-Pro-Display-UltralightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697BD20A42E01007DEC3B /* SF-Pro-Display-UltralightItalic.otf */; };
+		BA8697DC20A42E02007DEC3B /* SF-Pro-Display-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697BE20A42E01007DEC3B /* SF-Pro-Display-LightItalic.otf */; };
+		BA8697DD20A42E02007DEC3B /* SF-Pro-Display-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697BF20A42E01007DEC3B /* SF-Pro-Display-BlackItalic.otf */; };
+		BA8697DE20A42E02007DEC3B /* SF-Pro-Display-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697C020A42E01007DEC3B /* SF-Pro-Display-Black.otf */; };
+		BA8697DF20A42E02007DEC3B /* SF-Pro-Text-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697C120A42E01007DEC3B /* SF-Pro-Text-BoldItalic.otf */; };
+		BA8697E020A42E02007DEC3B /* SF-Pro-Text-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697C220A42E01007DEC3B /* SF-Pro-Text-RegularItalic.otf */; };
+		BA8697E120A42E02007DEC3B /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697C320A42E01007DEC3B /* SF-Pro-Text-Semibold.otf */; };
+		BA8697E220A42E02007DEC3B /* SF-Pro-Text-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697C420A42E01007DEC3B /* SF-Pro-Text-HeavyItalic.otf */; };
+		BA8697E320A42E02007DEC3B /* SF-Pro-Display-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697C520A42E01007DEC3B /* SF-Pro-Display-ThinItalic.otf */; };
+		BA8697E420A42E02007DEC3B /* SF-Pro-Text-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697C620A42E01007DEC3B /* SF-Pro-Text-LightItalic.otf */; };
+		BA8697E520A42E02007DEC3B /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697C720A42E01007DEC3B /* SF-Pro-Text-Medium.otf */; };
+		BA8697E620A42E02007DEC3B /* SF-Pro-Display-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697C820A42E01007DEC3B /* SF-Pro-Display-BoldItalic.otf */; };
+		BA8697E720A42E02007DEC3B /* SF-Pro-Text-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8697C920A42E01007DEC3B /* SF-Pro-Text-SemiboldItalic.otf */; };
+		BA8697E920A4517E007DEC3B /* weatherForDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8697E820A4517E007DEC3B /* weatherForDetailView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BA141E2220A7901B00F056E4 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		BA66924020A0CAB1006D6E5D /* WeatherAppAlpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAppAlpha.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA66924320A0CAB1006D6E5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BA66924520A0CAB1006D6E5D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BA66924820A0CAB1006D6E5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BA66924A20A0CAB5006D6E5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BA66924D20A0CAB5006D6E5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BA66924F20A0CAB5006D6E5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA66925520A0D406006D6E5D /* DayDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDetailsViewController.swift; sourceTree = "<group>"; };
+		BA66925720A0D487006D6E5D /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		BA66925920A0E917006D6E5D /* EachDayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachDayTableViewCell.swift; sourceTree = "<group>"; };
+		BA66926120A24C75006D6E5D /* EachHourCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachHourCollectionViewCell.swift; sourceTree = "<group>"; };
+		BA84963820A585BE001F57B9 /* CitiesCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesCellTableViewCell.swift; sourceTree = "<group>"; };
+		BA84963A20A58A57001F57B9 /* cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cities.swift; sourceTree = "<group>"; };
+		BA84963C20A58D76001F57B9 /* SearchCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityViewController.swift; sourceTree = "<group>"; };
+		BA8697AC20A42E01007DEC3B /* SF-Pro-Display-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Thin.otf"; sourceTree = "<group>"; };
+		BA8697AD20A42E01007DEC3B /* SF-Pro-Display-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-SemiboldItalic.otf"; sourceTree = "<group>"; };
+		BA8697AE20A42E01007DEC3B /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
+		BA8697AF20A42E01007DEC3B /* SF-Pro-Display-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-RegularItalic.otf"; sourceTree = "<group>"; };
+		BA8697B020A42E01007DEC3B /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
+		BA8697B120A42E01007DEC3B /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		BA8697B220A42E01007DEC3B /* SF-Pro-Text-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-MediumItalic.otf"; sourceTree = "<group>"; };
+		BA8697B320A42E01007DEC3B /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
+		BA8697B420A42E01007DEC3B /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
+		BA8697B520A42E01007DEC3B /* SF-Pro-Display-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Heavy.otf"; sourceTree = "<group>"; };
+		BA8697B620A42E01007DEC3B /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
+		BA8697B720A42E01007DEC3B /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
+		BA8697B820A42E01007DEC3B /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		BA8697B920A42E01007DEC3B /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
+		BA8697BA20A42E01007DEC3B /* SF-Pro-Display-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-MediumItalic.otf"; sourceTree = "<group>"; };
+		BA8697BB20A42E01007DEC3B /* SF-Pro-Display-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-HeavyItalic.otf"; sourceTree = "<group>"; };
+		BA8697BC20A42E01007DEC3B /* SF-Pro-Display-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Ultralight.otf"; sourceTree = "<group>"; };
+		BA8697BD20A42E01007DEC3B /* SF-Pro-Display-UltralightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-UltralightItalic.otf"; sourceTree = "<group>"; };
+		BA8697BE20A42E01007DEC3B /* SF-Pro-Display-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-LightItalic.otf"; sourceTree = "<group>"; };
+		BA8697BF20A42E01007DEC3B /* SF-Pro-Display-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-BlackItalic.otf"; sourceTree = "<group>"; };
+		BA8697C020A42E01007DEC3B /* SF-Pro-Display-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Black.otf"; sourceTree = "<group>"; };
+		BA8697C120A42E01007DEC3B /* SF-Pro-Text-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-BoldItalic.otf"; sourceTree = "<group>"; };
+		BA8697C220A42E01007DEC3B /* SF-Pro-Text-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-RegularItalic.otf"; sourceTree = "<group>"; };
+		BA8697C320A42E01007DEC3B /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
+		BA8697C420A42E01007DEC3B /* SF-Pro-Text-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-HeavyItalic.otf"; sourceTree = "<group>"; };
+		BA8697C520A42E01007DEC3B /* SF-Pro-Display-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-ThinItalic.otf"; sourceTree = "<group>"; };
+		BA8697C620A42E01007DEC3B /* SF-Pro-Text-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-LightItalic.otf"; sourceTree = "<group>"; };
+		BA8697C720A42E01007DEC3B /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		BA8697C820A42E01007DEC3B /* SF-Pro-Display-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-BoldItalic.otf"; sourceTree = "<group>"; };
+		BA8697C920A42E01007DEC3B /* SF-Pro-Text-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-SemiboldItalic.otf"; sourceTree = "<group>"; };
+		BA8697E820A4517E007DEC3B /* weatherForDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weatherForDetailView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BA66923D20A0CAB1006D6E5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BA66923720A0CAB1006D6E5D = {
+			isa = PBXGroup;
+			children = (
+				BA66924220A0CAB1006D6E5D /* WeatherAppAlpha */,
+				BA66924120A0CAB1006D6E5D /* Products */,
+				BA8697AB20A42E01007DEC3B /* SF Pro */,
+			);
+			sourceTree = "<group>";
+		};
+		BA66924120A0CAB1006D6E5D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BA66924020A0CAB1006D6E5D /* WeatherAppAlpha.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BA66924220A0CAB1006D6E5D /* WeatherAppAlpha */ = {
+			isa = PBXGroup;
+			children = (
+				BA66924320A0CAB1006D6E5D /* AppDelegate.swift */,
+				BA66924520A0CAB1006D6E5D /* ViewController.swift */,
+				BA66925520A0D406006D6E5D /* DayDetailsViewController.swift */,
+				BA66924720A0CAB1006D6E5D /* Main.storyboard */,
+				BA66924A20A0CAB5006D6E5D /* Assets.xcassets */,
+				BA66924C20A0CAB5006D6E5D /* LaunchScreen.storyboard */,
+				BA66924F20A0CAB5006D6E5D /* Info.plist */,
+				BA66925920A0E917006D6E5D /* EachDayTableViewCell.swift */,
+				BA66926120A24C75006D6E5D /* EachHourCollectionViewCell.swift */,
+				BA66925720A0D487006D6E5D /* Weather.swift */,
+				BA8697E820A4517E007DEC3B /* weatherForDetailView.swift */,
+				BA84963820A585BE001F57B9 /* CitiesCellTableViewCell.swift */,
+				BA84963A20A58A57001F57B9 /* cities.swift */,
+				BA84963C20A58D76001F57B9 /* SearchCityViewController.swift */,
+				BA141E2220A7901B00F056E4 /* SettingsViewController.swift */,
+			);
+			path = WeatherAppAlpha;
+			sourceTree = "<group>";
+		};
+		BA8697AB20A42E01007DEC3B /* SF Pro */ = {
+			isa = PBXGroup;
+			children = (
+				BA8697AC20A42E01007DEC3B /* SF-Pro-Display-Thin.otf */,
+				BA8697AD20A42E01007DEC3B /* SF-Pro-Display-SemiboldItalic.otf */,
+				BA8697AE20A42E01007DEC3B /* SF-Pro-Text-Heavy.otf */,
+				BA8697AF20A42E01007DEC3B /* SF-Pro-Display-RegularItalic.otf */,
+				BA8697B020A42E01007DEC3B /* SF-Pro-Display-Light.otf */,
+				BA8697B120A42E01007DEC3B /* SF-Pro-Display-Regular.otf */,
+				BA8697B220A42E01007DEC3B /* SF-Pro-Text-MediumItalic.otf */,
+				BA8697B320A42E01007DEC3B /* SF-Pro-Display-Bold.otf */,
+				BA8697B420A42E01007DEC3B /* SF-Pro-Display-Medium.otf */,
+				BA8697B520A42E01007DEC3B /* SF-Pro-Display-Heavy.otf */,
+				BA8697B620A42E01007DEC3B /* SF-Pro-Text-Light.otf */,
+				BA8697B720A42E01007DEC3B /* SF-Pro-Display-Semibold.otf */,
+				BA8697B820A42E01007DEC3B /* SF-Pro-Text-Regular.otf */,
+				BA8697B920A42E01007DEC3B /* SF-Pro-Text-Bold.otf */,
+				BA8697BA20A42E01007DEC3B /* SF-Pro-Display-MediumItalic.otf */,
+				BA8697BB20A42E01007DEC3B /* SF-Pro-Display-HeavyItalic.otf */,
+				BA8697BC20A42E01007DEC3B /* SF-Pro-Display-Ultralight.otf */,
+				BA8697BD20A42E01007DEC3B /* SF-Pro-Display-UltralightItalic.otf */,
+				BA8697BE20A42E01007DEC3B /* SF-Pro-Display-LightItalic.otf */,
+				BA8697BF20A42E01007DEC3B /* SF-Pro-Display-BlackItalic.otf */,
+				BA8697C020A42E01007DEC3B /* SF-Pro-Display-Black.otf */,
+				BA8697C120A42E01007DEC3B /* SF-Pro-Text-BoldItalic.otf */,
+				BA8697C220A42E01007DEC3B /* SF-Pro-Text-RegularItalic.otf */,
+				BA8697C320A42E01007DEC3B /* SF-Pro-Text-Semibold.otf */,
+				BA8697C420A42E01007DEC3B /* SF-Pro-Text-HeavyItalic.otf */,
+				BA8697C520A42E01007DEC3B /* SF-Pro-Display-ThinItalic.otf */,
+				BA8697C620A42E01007DEC3B /* SF-Pro-Text-LightItalic.otf */,
+				BA8697C720A42E01007DEC3B /* SF-Pro-Text-Medium.otf */,
+				BA8697C820A42E01007DEC3B /* SF-Pro-Display-BoldItalic.otf */,
+				BA8697C920A42E01007DEC3B /* SF-Pro-Text-SemiboldItalic.otf */,
+			);
+			path = "SF Pro";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BA66923F20A0CAB1006D6E5D /* WeatherAppAlpha */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA66925220A0CAB5006D6E5D /* Build configuration list for PBXNativeTarget "WeatherAppAlpha" */;
+			buildPhases = (
+				BA66923C20A0CAB1006D6E5D /* Sources */,
+				BA66923D20A0CAB1006D6E5D /* Frameworks */,
+				BA66923E20A0CAB1006D6E5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeatherAppAlpha;
+			productName = WeatherAppAlpha;
+			productReference = BA66924020A0CAB1006D6E5D /* WeatherAppAlpha.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BA66923820A0CAB1006D6E5D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Maxim Reshetov";
+				TargetAttributes = {
+					BA66923F20A0CAB1006D6E5D = {
+						CreatedOnToolsVersion = 9.3;
+					};
+				};
+			};
+			buildConfigurationList = BA66923B20A0CAB1006D6E5D /* Build configuration list for PBXProject "WeatherAppAlpha" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BA66923720A0CAB1006D6E5D;
+			productRefGroup = BA66924120A0CAB1006D6E5D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BA66923F20A0CAB1006D6E5D /* WeatherAppAlpha */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BA66923E20A0CAB1006D6E5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA8697DB20A42E02007DEC3B /* SF-Pro-Display-UltralightItalic.otf in Resources */,
+				BA8697D220A42E02007DEC3B /* SF-Pro-Display-Medium.otf in Resources */,
+				BA8697E020A42E02007DEC3B /* SF-Pro-Text-RegularItalic.otf in Resources */,
+				BA8697D020A42E02007DEC3B /* SF-Pro-Text-MediumItalic.otf in Resources */,
+				BA8697DF20A42E02007DEC3B /* SF-Pro-Text-BoldItalic.otf in Resources */,
+				BA8697CA20A42E02007DEC3B /* SF-Pro-Display-Thin.otf in Resources */,
+				BA8697E120A42E02007DEC3B /* SF-Pro-Text-Semibold.otf in Resources */,
+				BA8697CC20A42E02007DEC3B /* SF-Pro-Text-Heavy.otf in Resources */,
+				BA8697D920A42E02007DEC3B /* SF-Pro-Display-HeavyItalic.otf in Resources */,
+				BA8697D820A42E02007DEC3B /* SF-Pro-Display-MediumItalic.otf in Resources */,
+				BA8697E420A42E02007DEC3B /* SF-Pro-Text-LightItalic.otf in Resources */,
+				BA8697CD20A42E02007DEC3B /* SF-Pro-Display-RegularItalic.otf in Resources */,
+				BA8697E220A42E02007DEC3B /* SF-Pro-Text-HeavyItalic.otf in Resources */,
+				BA8697E520A42E02007DEC3B /* SF-Pro-Text-Medium.otf in Resources */,
+				BA8697DC20A42E02007DEC3B /* SF-Pro-Display-LightItalic.otf in Resources */,
+				BA8697DD20A42E02007DEC3B /* SF-Pro-Display-BlackItalic.otf in Resources */,
+				BA8697DA20A42E02007DEC3B /* SF-Pro-Display-Ultralight.otf in Resources */,
+				BA8697DE20A42E02007DEC3B /* SF-Pro-Display-Black.otf in Resources */,
+				BA8697E620A42E02007DEC3B /* SF-Pro-Display-BoldItalic.otf in Resources */,
+				BA8697E720A42E02007DEC3B /* SF-Pro-Text-SemiboldItalic.otf in Resources */,
+				BA66924E20A0CAB5006D6E5D /* LaunchScreen.storyboard in Resources */,
+				BA8697D620A42E02007DEC3B /* SF-Pro-Text-Regular.otf in Resources */,
+				BA66924B20A0CAB5006D6E5D /* Assets.xcassets in Resources */,
+				BA8697D320A42E02007DEC3B /* SF-Pro-Display-Heavy.otf in Resources */,
+				BA8697D720A42E02007DEC3B /* SF-Pro-Text-Bold.otf in Resources */,
+				BA66924920A0CAB1006D6E5D /* Main.storyboard in Resources */,
+				BA8697CE20A42E02007DEC3B /* SF-Pro-Display-Light.otf in Resources */,
+				BA8697CF20A42E02007DEC3B /* SF-Pro-Display-Regular.otf in Resources */,
+				BA8697CB20A42E02007DEC3B /* SF-Pro-Display-SemiboldItalic.otf in Resources */,
+				BA8697D520A42E02007DEC3B /* SF-Pro-Display-Semibold.otf in Resources */,
+				BA8697D420A42E02007DEC3B /* SF-Pro-Text-Light.otf in Resources */,
+				BA8697E320A42E02007DEC3B /* SF-Pro-Display-ThinItalic.otf in Resources */,
+				BA8697D120A42E02007DEC3B /* SF-Pro-Display-Bold.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BA66923C20A0CAB1006D6E5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA66925820A0D487006D6E5D /* Weather.swift in Sources */,
+				BA84963D20A58D76001F57B9 /* SearchCityViewController.swift in Sources */,
+				BA141E2320A7901B00F056E4 /* SettingsViewController.swift in Sources */,
+				BA84963B20A58A57001F57B9 /* cities.swift in Sources */,
+				BA66925620A0D406006D6E5D /* DayDetailsViewController.swift in Sources */,
+				BA66926220A24C75006D6E5D /* EachHourCollectionViewCell.swift in Sources */,
+				BA8697E920A4517E007DEC3B /* weatherForDetailView.swift in Sources */,
+				BA84963920A585BE001F57B9 /* CitiesCellTableViewCell.swift in Sources */,
+				BA66925A20A0E917006D6E5D /* EachDayTableViewCell.swift in Sources */,
+				BA66924620A0CAB1006D6E5D /* ViewController.swift in Sources */,
+				BA66924420A0CAB1006D6E5D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BA66924720A0CAB1006D6E5D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA66924820A0CAB1006D6E5D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BA66924C20A0CAB5006D6E5D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA66924D20A0CAB5006D6E5D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BA66925020A0CAB5006D6E5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BA66925120A0CAB5006D6E5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BA66925320A0CAB5006D6E5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 78FSRJL5ZR;
+				INFOPLIST_FILE = WeatherAppAlpha/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Inc..WeatherAppAlpha;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA66925420A0CAB5006D6E5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 78FSRJL5ZR;
+				INFOPLIST_FILE = WeatherAppAlpha/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Inc..WeatherAppAlpha;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BA66923B20A0CAB1006D6E5D /* Build configuration list for PBXProject "WeatherAppAlpha" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA66925020A0CAB5006D6E5D /* Debug */,
+				BA66925120A0CAB5006D6E5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA66925220A0CAB5006D6E5D /* Build configuration list for PBXNativeTarget "WeatherAppAlpha" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA66925320A0CAB5006D6E5D /* Debug */,
+				BA66925420A0CAB5006D6E5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BA66923820A0CAB1006D6E5D /* Project object */;
+}
