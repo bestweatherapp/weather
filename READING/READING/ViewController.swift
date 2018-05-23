@@ -81,6 +81,7 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "search60"), for: .normal)
+        button.backgroundColor = .gray
         button.addTarget(self, action: #selector(OpenSearchVC), for: .touchUpInside)
         return button
     }()
