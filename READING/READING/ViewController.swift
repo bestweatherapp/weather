@@ -598,7 +598,7 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                             allhoursForDay.append(newHour)
                             counter = counter-1
                         }
-                    }//
+                    }///
                     let newDay = ForecastDay(avg_temp_c: avgtemp_, date: date_!,temperature_avg: avgtemp_, temperature_max: maxtemp_, temperature_min: mintemp_, windSpeed_max: wind_max_!, avghumidity: avghum_, comment: comment_, condition: condition_, uv: uv_, forecastHours: allhoursForDay as! [ForecastHour])
                     newDay.date = date_!
                     allDays.append(newDay)
