@@ -243,7 +243,7 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
         var allDatesMethod = ResultMethod.2
         var allTempsMethpd = ResultMethod.3
         }
-        
+        ///
         let urlString2 = "https://api.apixu.com/v1/forecast.json?key=ef0ae6ee03be447ba2f215216180405&q=\(city)&days=7"
         let url2 = URL(string: urlString2)
         let task2 = URLSession.shared.dataTask(with: url2!)
