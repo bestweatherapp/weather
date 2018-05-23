@@ -425,7 +425,7 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
 //         city =  self.CitySelectedFromPreferences
 //        }
 //        else
-    
+    //
      //   let currentLocation: CLLocation = locationManager.location!
         
         var allDates = [String]()
