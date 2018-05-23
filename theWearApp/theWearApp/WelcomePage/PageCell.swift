@@ -25,7 +25,7 @@ class PageCell: UICollectionViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(white: 1, alpha: 0.9)
-        view.layer.cornerRadius = 25
+        view.layer.cornerRadius = 30
         return view
     }()
     
