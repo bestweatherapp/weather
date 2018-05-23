@@ -7,25 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BA1C69AB20B4BACD00046D8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1C69AA20B4BACD00046D8F /* AppDelegate.swift */; };
-		BA1C69AD20B4BACD00046D8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1C69AC20B4BACD00046D8F /* ViewController.swift */; };
-		BA1C69B020B4BACD00046D8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA1C69AE20B4BACD00046D8F /* Main.storyboard */; };
-		BA1C69B220B4BACE00046D8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA1C69B120B4BACE00046D8F /* Assets.xcassets */; };
-		BA1C69B520B4BACE00046D8F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA1C69B320B4BACE00046D8F /* LaunchScreen.storyboard */; };
+		BA20553720B52BBD00EB9DDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA20553620B52BBD00EB9DDC /* AppDelegate.swift */; };
+		BA20553920B52BBD00EB9DDC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA20553820B52BBD00EB9DDC /* ViewController.swift */; };
+		BA20553C20B52BBD00EB9DDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA20553A20B52BBD00EB9DDC /* Main.storyboard */; };
+		BA20553E20B52BBD00EB9DDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA20553D20B52BBD00EB9DDC /* Assets.xcassets */; };
+		BA20554120B52BBD00EB9DDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA20553F20B52BBD00EB9DDC /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BA1C69A720B4BACD00046D8F /* theWearApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = theWearApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA1C69AA20B4BACD00046D8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BA1C69AC20B4BACD00046D8F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BA1C69AF20B4BACD00046D8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BA1C69B120B4BACE00046D8F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BA1C69B420B4BACE00046D8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		BA1C69B620B4BACE00046D8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA20553320B52BBC00EB9DDC /* theWearApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = theWearApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA20553620B52BBD00EB9DDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BA20553820B52BBD00EB9DDC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BA20553B20B52BBD00EB9DDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BA20553D20B52BBD00EB9DDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BA20554020B52BBD00EB9DDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BA20554220B52BBD00EB9DDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		BA1C69A420B4BACD00046D8F /* Frameworks */ = {
+		BA20553020B52BBC00EB9DDC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -35,31 +35,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BA1C699E20B4BACD00046D8F = {
+		BA20552A20B52BBC00EB9DDC = {
 			isa = PBXGroup;
 			children = (
-				BA1C69A920B4BACD00046D8F /* theWearApp */,
-				BA1C69A820B4BACD00046D8F /* Products */,
+				BA20553520B52BBC00EB9DDC /* theWearApp */,
+				BA20553420B52BBC00EB9DDC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		BA1C69A820B4BACD00046D8F /* Products */ = {
+		BA20553420B52BBC00EB9DDC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BA1C69A720B4BACD00046D8F /* theWearApp.app */,
+				BA20553320B52BBC00EB9DDC /* theWearApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BA1C69A920B4BACD00046D8F /* theWearApp */ = {
+		BA20553520B52BBC00EB9DDC /* theWearApp */ = {
 			isa = PBXGroup;
 			children = (
-				BA1C69AA20B4BACD00046D8F /* AppDelegate.swift */,
-				BA1C69AC20B4BACD00046D8F /* ViewController.swift */,
-				BA1C69AE20B4BACD00046D8F /* Main.storyboard */,
-				BA1C69B120B4BACE00046D8F /* Assets.xcassets */,
-				BA1C69B320B4BACE00046D8F /* LaunchScreen.storyboard */,
-				BA1C69B620B4BACE00046D8F /* Info.plist */,
+				BA20553620B52BBD00EB9DDC /* AppDelegate.swift */,
+				BA20553820B52BBD00EB9DDC /* ViewController.swift */,
+				BA20553A20B52BBD00EB9DDC /* Main.storyboard */,
+				BA20553D20B52BBD00EB9DDC /* Assets.xcassets */,
+				BA20553F20B52BBD00EB9DDC /* LaunchScreen.storyboard */,
+				BA20554220B52BBD00EB9DDC /* Info.plist */,
 			);
 			path = theWearApp;
 			sourceTree = "<group>";
@@ -67,13 +67,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BA1C69A620B4BACD00046D8F /* theWearApp */ = {
+		BA20553220B52BBC00EB9DDC /* theWearApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BA1C69B920B4BACE00046D8F /* Build configuration list for PBXNativeTarget "theWearApp" */;
+			buildConfigurationList = BA20554520B52BBD00EB9DDC /* Build configuration list for PBXNativeTarget "theWearApp" */;
 			buildPhases = (
-				BA1C69A320B4BACD00046D8F /* Sources */,
-				BA1C69A420B4BACD00046D8F /* Frameworks */,
-				BA1C69A520B4BACD00046D8F /* Resources */,
+				BA20552F20B52BBC00EB9DDC /* Sources */,
+				BA20553020B52BBC00EB9DDC /* Frameworks */,
+				BA20553120B52BBC00EB9DDC /* Resources */,
 			);
 			buildRules = (
 			);
@@ -81,25 +81,25 @@
 			);
 			name = theWearApp;
 			productName = theWearApp;
-			productReference = BA1C69A720B4BACD00046D8F /* theWearApp.app */;
+			productReference = BA20553320B52BBC00EB9DDC /* theWearApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		BA1C699F20B4BACD00046D8F /* Project object */ = {
+		BA20552B20B52BBC00EB9DDC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = theWear;
 				TargetAttributes = {
-					BA1C69A620B4BACD00046D8F = {
+					BA20553220B52BBC00EB9DDC = {
 						CreatedOnToolsVersion = 9.3;
 					};
 				};
 			};
-			buildConfigurationList = BA1C69A220B4BACD00046D8F /* Build configuration list for PBXProject "theWearApp" */;
+			buildConfigurationList = BA20552E20B52BBC00EB9DDC /* Build configuration list for PBXProject "theWearApp" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -107,54 +107,54 @@
 				en,
 				Base,
 			);
-			mainGroup = BA1C699E20B4BACD00046D8F;
-			productRefGroup = BA1C69A820B4BACD00046D8F /* Products */;
+			mainGroup = BA20552A20B52BBC00EB9DDC;
+			productRefGroup = BA20553420B52BBC00EB9DDC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BA1C69A620B4BACD00046D8F /* theWearApp */,
+				BA20553220B52BBC00EB9DDC /* theWearApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		BA1C69A520B4BACD00046D8F /* Resources */ = {
+		BA20553120B52BBC00EB9DDC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA1C69B520B4BACE00046D8F /* LaunchScreen.storyboard in Resources */,
-				BA1C69B220B4BACE00046D8F /* Assets.xcassets in Resources */,
-				BA1C69B020B4BACD00046D8F /* Main.storyboard in Resources */,
+				BA20554120B52BBD00EB9DDC /* LaunchScreen.storyboard in Resources */,
+				BA20553E20B52BBD00EB9DDC /* Assets.xcassets in Resources */,
+				BA20553C20B52BBD00EB9DDC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		BA1C69A320B4BACD00046D8F /* Sources */ = {
+		BA20552F20B52BBC00EB9DDC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA1C69AD20B4BACD00046D8F /* ViewController.swift in Sources */,
-				BA1C69AB20B4BACD00046D8F /* AppDelegate.swift in Sources */,
+				BA20553920B52BBD00EB9DDC /* ViewController.swift in Sources */,
+				BA20553720B52BBD00EB9DDC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BA1C69AE20B4BACD00046D8F /* Main.storyboard */ = {
+		BA20553A20B52BBD00EB9DDC /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BA1C69AF20B4BACD00046D8F /* Base */,
+				BA20553B20B52BBD00EB9DDC /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		BA1C69B320B4BACE00046D8F /* LaunchScreen.storyboard */ = {
+		BA20553F20B52BBD00EB9DDC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BA1C69B420B4BACE00046D8F /* Base */,
+				BA20554020B52BBD00EB9DDC /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -162,7 +162,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		BA1C69B720B4BACE00046D8F /* Debug */ = {
+		BA20554320B52BBD00EB9DDC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -222,7 +222,7 @@
 			};
 			name = Debug;
 		};
-		BA1C69B820B4BACE00046D8F /* Release */ = {
+		BA20554420B52BBD00EB9DDC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -276,7 +276,7 @@
 			};
 			name = Release;
 		};
-		BA1C69BA20B4BACE00046D8F /* Debug */ = {
+		BA20554620B52BBD00EB9DDC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -294,7 +294,7 @@
 			};
 			name = Debug;
 		};
-		BA1C69BB20B4BACE00046D8F /* Release */ = {
+		BA20554720B52BBD00EB9DDC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -315,25 +315,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BA1C69A220B4BACD00046D8F /* Build configuration list for PBXProject "theWearApp" */ = {
+		BA20552E20B52BBC00EB9DDC /* Build configuration list for PBXProject "theWearApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BA1C69B720B4BACE00046D8F /* Debug */,
-				BA1C69B820B4BACE00046D8F /* Release */,
+				BA20554320B52BBD00EB9DDC /* Debug */,
+				BA20554420B52BBD00EB9DDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BA1C69B920B4BACE00046D8F /* Build configuration list for PBXNativeTarget "theWearApp" */ = {
+		BA20554520B52BBD00EB9DDC /* Build configuration list for PBXNativeTarget "theWearApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BA1C69BA20B4BACE00046D8F /* Debug */,
-				BA1C69BB20B4BACE00046D8F /* Release */,
+				BA20554620B52BBD00EB9DDC /* Debug */,
+				BA20554720B52BBD00EB9DDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = BA1C699F20B4BACD00046D8F /* Project object */;
+	rootObject = BA20552B20B52BBC00EB9DDC /* Project object */;
 }

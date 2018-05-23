@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  theWearApp
 //
-//  Created by Maxim Reshetov on 22.05.2018.
+//  Created by Maxim Reshetov on 23.05.2018.
 //  Copyright © 2018 theWear. All rights reserved.
 //
 
@@ -14,11 +14,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
-    let label: UITextView = {
-        let text = UITextView()
-        return text
-    }()
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
