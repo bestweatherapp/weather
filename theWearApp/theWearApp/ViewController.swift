@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     let label: UITextView = {
         let text = UITextView()
+        text.backgroundColor = .red
         return text
     }()
 
