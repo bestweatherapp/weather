@@ -16,6 +16,7 @@
 		BA5630DB20B5EB0E0052FAD2 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5630DA20B5EB0E0052FAD2 /* Page.swift */; };
 		BA5630DE20B629710052FAD2 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5630DD20B629710052FAD2 /* DayCell.swift */; };
 		BA5630E020B6297D0052FAD2 /* HourCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5630DF20B6297D0052FAD2 /* HourCell.swift */; };
+		BA5630E220B6A5DD0052FAD2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5630E120B6A5DD0052FAD2 /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		BA5630DA20B5EB0E0052FAD2 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		BA5630DD20B629710052FAD2 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		BA5630DF20B6297D0052FAD2 /* HourCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourCell.swift; sourceTree = "<group>"; };
+		BA5630E120B6A5DD0052FAD2 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				BA20553620B52BBD00EB9DDC /* AppDelegate.swift */,
 				BA20553820B52BBD00EB9DDC /* ViewController.swift */,
+				BA5630E120B6A5DD0052FAD2 /* SearchViewController.swift */,
 				BA20553D20B52BBD00EB9DDC /* Assets.xcassets */,
 				BA20553F20B52BBD00EB9DDC /* LaunchScreen.storyboard */,
 				BA20554220B52BBD00EB9DDC /* Info.plist */,
@@ -156,6 +159,7 @@
 			files = (
 				BA5630D720B5E2F90052FAD2 /* WelcomePage.swift in Sources */,
 				BA5630E020B6297D0052FAD2 /* HourCell.swift in Sources */,
+				BA5630E220B6A5DD0052FAD2 /* SearchViewController.swift in Sources */,
 				BA20553920B52BBD00EB9DDC /* ViewController.swift in Sources */,
 				BA5630D920B5EA110052FAD2 /* PageCell.swift in Sources */,
 				BA20553720B52BBD00EB9DDC /* AppDelegate.swift in Sources */,

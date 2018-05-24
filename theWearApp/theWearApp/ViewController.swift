@@ -14,6 +14,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = forecastCollectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! HourCell
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -22,26 +23,52 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
 }
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        if tableView == self.forecastTableView {
+            return 7
+        } else {
+            return 20
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = forecastTableView.dequeueReusableCell(withIdentifier: "tableViewcell", for: indexPath) as! DayCell
-        
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = "1"
-        return cell
+        if tableView == self.forecastTableView {
+            let cell = forecastTableView.dequeueReusableCell(withIdentifier: "tableViewcell", for: indexPath) as! DayCell
+            cell.date.attributedText = NSAttributedString(string: "Today", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 25)])
+            return cell
+        } else {
+            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+            cell.textLabel?.text = "Moscow"
+            return cell
+        }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.8) {
+        UIView.animate(withDuration: 0.4) {
             self.topStackView.frame.origin.x = -self.view.frame.width
             self.middleStackView.frame.origin.x = -self.view.frame.width
             self.bottomStackView.frame.origin.x = -self.view.frame.width
             self.detailedView.frame.origin.x = 25
         }
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(70)
+    }
 }
 
 class ViewController: UIViewController {
+    
+    private let slideOutMenu: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        return view
+    }()
+    
+    private let favouriteCitiesTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .green
+        tableView.showsVerticalScrollIndicator = false
+        return tableView
+    }()
     
     private let detailedView: UIView = {
         let view = UIView()
@@ -51,17 +78,37 @@ class ViewController: UIViewController {
         return view
     }()
     
-    private let menuButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "menu"), for: .normal)
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .green
+        return view
+    }()
+    
+    private let closeDetailedViewButton: UIButton = {
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isSelected = false
+        button.addTarget(self, action: #selector(CloseDetailedView), for: .touchUpInside)
+        button.setImage(UIImage(named: "close"), for: .normal)
+        return button
+    }()
+    
+    private let menuButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "menu"), for: .normal)
+        button.isSelected = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(OpenSlideOutMenu), for: .touchUpInside)
         return button
     }()
     
     private let searchButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton()
         button.setImage(UIImage(named: "search"), for: .normal)
+        button.isSelected = false
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(OpenSearchVC), for: .touchUpInside)
         return button
     }()
     
@@ -81,7 +128,7 @@ class ViewController: UIViewController {
     private let currentTemperature: UITextView = {
         let text = UITextView()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSMutableAttributedString(string: "23°", attributes: [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 80), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+        let attributedText = NSMutableAttributedString(string: "+23°", attributes: [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 80), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
         text.attributedText = attributedText
         text.textAlignment = .center
         text.backgroundColor = .clear
@@ -159,8 +206,85 @@ class ViewController: UIViewController {
         return view
     }()
     
+    // Methods
+    
+    @objc private func OpenSearchVC() {
+        let searchVC = SearchViewController()
+        searchVC.modalPresentationStyle = .overCurrentContext
+        // Animate ViewController
+        let transition = CATransition()
+        transition.duration = 0.4
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionPush
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        self.view.window?.layer.add(transition, forKey: kCATransition)
+        present(searchVC, animated: true, completion: nil)
+    }
+    @objc func CloseDetailedView() {
+        UIView.animate(withDuration: 0.4) {
+            self.topStackView.frame.origin.x = 25
+            self.middleStackView.frame.origin.x = 25
+            self.bottomStackView.frame.origin.x = 25
+            self.detailedView.frame.origin.x = self.view.frame.width + 25
+        }
+    }
+    @objc func OpenSlideOutMenu() {
+//        self.view.addSubview(self.blurEffectView)
+//        blurEffectView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+//        blurEffectView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//        blurEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+//        blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        self.forecastTableView.isUserInteractionEnabled = false
+        self.forecastCollectionView.isUserInteractionEnabled = false
+        self.searchButton.isUserInteractionEnabled = false
+        self.bottomStackView.isUserInteractionEnabled = false
+        self.topStackView.isUserInteractionEnabled = false
+        self.middleStackView.isUserInteractionEnabled = false
+        self.currentTemperature.isUserInteractionEnabled = false
+        self.currentCondition.isUserInteractionEnabled = false
+        self.currentAdvice.isUserInteractionEnabled = false
+        self.currentLocation.isUserInteractionEnabled = false
+        UIView.animate(withDuration: 0.5) {
+//            self.blurEffectView.effect = UIBlurEffect(style: UIBlurEffectStyle.light)
+            self.slideOutMenu.frame.origin.x = 0
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch? = touches.first
+        if touch?.view != self.slideOutMenu {
+            self.forecastTableView.isUserInteractionEnabled = true
+            self.forecastCollectionView.isUserInteractionEnabled = true
+            self.searchButton.isUserInteractionEnabled = true
+            self.bottomStackView.isUserInteractionEnabled = true
+            self.topStackView.isUserInteractionEnabled = true
+            self.middleStackView.isUserInteractionEnabled = true
+            self.currentTemperature.isUserInteractionEnabled = true
+            self.currentCondition.isUserInteractionEnabled = true
+            self.currentAdvice.isUserInteractionEnabled = true
+            self.currentLocation.isUserInteractionEnabled = true
+            self.searchButton.isEnabled = true
+            UIView.animate(withDuration: 0.5) {
+                self.slideOutMenu.frame.origin.x = -250
+            }
+        }
+    }
+    
+    
+//    private let blurEffectView: UIVisualEffectView = {
+//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+//        let blur = UIVisualEffectView(effect: blurEffect)
+//        blur.translatesAutoresizingMaskIntoConstraints = false
+//        blur.effect = nil
+//        return blur
+//    }()
+    
     private func LayOut() {
         view.addSubview(detailedView)
+        slideOutMenu.addSubview(favouriteCitiesTableView)
+        
+        detailedView.addSubview(closeDetailedViewButton)
+        detailedView.addSubview(scrollView)
         bottomStackView.addArrangedSubview(forecastCollectionView)
         bottomStackView.addArrangedSubview(forecastTableView)
         view.addSubview(bottomStackView)
@@ -174,12 +298,33 @@ class ViewController: UIViewController {
         topStackView.addArrangedSubview(currentLocation)
         topStackView.addArrangedSubview(searchButton)
         view.addSubview(topStackView)
+        view.addSubview(slideOutMenu)
         
         switch UIScreen.main.nativeBounds.height {
         case 1136:
             print("iPhone 5")
         case 1334:
             print("iPhone 6")
+            
+            slideOutMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -290).isActive = true
+            slideOutMenu.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            slideOutMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            slideOutMenu.widthAnchor.constraint(equalToConstant: 250).isActive = true
+            
+            closeDetailedViewButton.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor, constant: -25).isActive = true
+            closeDetailedViewButton.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 25).isActive = true
+            closeDetailedViewButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
+            closeDetailedViewButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            
+            favouriteCitiesTableView.topAnchor.constraint(equalTo: slideOutMenu.topAnchor, constant: 100).isActive = true
+            favouriteCitiesTableView.bottomAnchor.constraint(equalTo: slideOutMenu.bottomAnchor, constant: -100).isActive = true
+            favouriteCitiesTableView.leadingAnchor.constraint(equalTo: slideOutMenu.leadingAnchor, constant: 50).isActive = true
+            favouriteCitiesTableView.trailingAnchor.constraint(equalTo: slideOutMenu.trailingAnchor, constant: -50).isActive = true
+            
+            scrollView.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 75).isActive = true
+            scrollView.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor).isActive = true
+            scrollView.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor).isActive = true
+            scrollView.bottomAnchor.constraint(equalTo: detailedView.bottomAnchor, constant: -75).isActive = true
             
             bottomStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25).isActive = true
             bottomStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25).isActive = true
@@ -232,20 +377,25 @@ class ViewController: UIViewController {
         
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightBlue
         forecastTableView.delegate = self
         forecastTableView.dataSource = self
+        favouriteCitiesTableView.delegate = self
+        favouriteCitiesTableView.dataSource = self
         forecastCollectionView.dataSource = self
-        //forecastTableView.register(DayCell.self, forCellReuseIdentifier: "tableViewcell")
+        forecastTableView.register(DayCell.self, forCellReuseIdentifier: "tableViewcell")
         forecastCollectionView.register(HourCell.self, forCellWithReuseIdentifier: "collectionViewCell")
         LayOut()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }
 
