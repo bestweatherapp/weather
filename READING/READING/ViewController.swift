@@ -57,7 +57,7 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
     var allHours = ["","","","","","","","","","","",""]
     var allHourlyTemps = ["","","","","","","","","","","",""]
     var currentForecastCity = ForecastCity() // полная информация
-    var CitySelectedFromPreferences = ""
+    var citySelectedFromPreferences = ""
     
     // DateLabel
     let currentDate: UITextView = {
@@ -433,7 +433,7 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
         var allHours = [String]()
         var allHourlyTemps = [String]()
         let errorHasOccured: Bool = false
-        let current_ = Current()
+        let current = Current()
         //var defaultAllDays = [ForecastDay]()
         // // // // // // // //
         //let ResultMethod = ResultForecastCity.GetWeatherData(city: city)
@@ -453,25 +453,25 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                 
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
                     as! [String : AnyObject]
-                guard let current = json["current"] as? [String : AnyObject]
+                guard let current_json = json["current"] as? [String : AnyObject]
                     else
                 {
                     self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
                     return
                 }
-                current_.temp = current["temp_c"] as? Double
-                current_.datetime = current["last_updated"] as? String
-                guard  let condition = current["condition"] as? [String : AnyObject]
+                current.temp = current_json["temp_c"] as? Double
+                current.datetime = current_json["last_updated"] as? String
+                guard  let condition_json = current_json["condition"] as? [String : AnyObject]
                     else
                 {
                     self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
                     return
                 }
-                current_.condition = condition["text"] as? String
-                current_.feelslike = current["feelslike_c"] as? Double
-                current_.wind_dir = current["wind_dir"] as? String
-                current_.wind_speed = current["wind_kph"] as? Double
-                current_.wind_speed = round(current_.wind_speed! * 5/18)
+                current.condition = condition_json["text"] as? String
+                current.feelslike = current_json["feelslike_c"] as? Double
+                current.wind_dir = current_json["wind_dir"] as? String
+                current.wind_speed = current_json["wind_kph"] as? Double
+                current.wind_speed = round(current.wind_speed! * 5/18)
                 guard let forecast = json["forecast"] as? [String: AnyObject]
                     else
                 {
@@ -496,45 +496,45 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                         self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
                         return
                     }
-                    var date_ = day1["date"] as? String //об
-                    var dateparts = date_?.components(separatedBy: "-")
-                    date_ = dateparts![2] + "." + dateparts![1]
-                    allDates.append(date_!)
-                    let comment_ = ""
-                    guard let maxtemp_ = day["maxtemp_c"] as? Double//
+                    var date = day1["date"] as? String //об
+                    var dateparts = date?.components(separatedBy: "-")
+                    date = dateparts![2] + "." + dateparts![1]
+                    allDates.append(date!)
+                    let comment = ""
+                    guard let maxtemp = day["maxtemp_c"] as? Double//
                         else
                     {
                         self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
                         return
                     }
-                    guard let mintemp_ = day["mintemp_c"] as? Double
+                    guard let mintemp = day["mintemp_c"] as? Double
                         else
                     {
                         self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
                         return
                     }
-                    guard  let avgtemp_ = day["avgtemp_c"] as? Double
+                    guard  let avgtemp = day["avgtemp_c"] as? Double
                         else
                     {
                         self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
                         return
                     }
-                    allTempsdays.append(avgtemp_)
-                    guard var wind_max_ = day["maxwind_kph"] as? Double?
+                    allTempsdays.append(avgtemp)
+                    guard var wind_max = day["maxwind_kph"] as? Double?
                         else
                     {
                         self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
                         return
                         
                     }
-                    wind_max_ = wind_max_! * 5/18
-                    guard let avghum_ = day["avghumidity"] as? Double
+                    wind_max = wind_max! * 5/18
+                    guard let avghum = day["avghumidity"] as? Double
                         else
                     {
                         self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
                         return
                     }
-                    guard let uv_ = day["uv"] as? Double
+                    guard let uv = day["uv"] as? Double
                         else
                     {
                         self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
@@ -546,7 +546,7 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                         self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
                         return
                     }
-                    guard let condition_ = text["text"] as? String
+                    guard let condition = text["text"] as? String
                         else
                     {
                         self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
@@ -592,8 +592,8 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                             counter = counter-1
                         }
                     }///
-                    let newDay = ForecastDay(avg_temp_c: avgtemp_, date: date_!,temperature_avg: avgtemp_, temperature_max: maxtemp_, temperature_min: mintemp_, windSpeed_max: wind_max_!, avghumidity: avghum_, comment: comment_, condition: condition_, uv: uv_, forecastHours: allhoursForDay as! [ForecastHour])
-                    newDay.date = date_!
+                    let newDay = ForecastDay(avg_temp_c: avgtemp, date: date!,temperature_avg: avgtemp, temperature_max: maxtemp, temperature_min: mintemp, windSpeed_max: wind_max!, avghumidity: avghum, comment: comment, condition: condition, uv: uv, forecastHours: allhoursForDay as! [ForecastHour])
+                    newDay.date = date!
                     allDays.append(newDay)
                     self?.allDates = allDates
                     self?.allTemps = allTempsdays
@@ -617,7 +617,7 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                 }
                 self?.allHours = allHours
                 self?.allHourlyTemps = allHourlyTemps
-                self?.currentForecastCity = ForecastCity(Current: current_, ForecastDay: allDays)
+                self?.currentForecastCity = ForecastCity(Current: current, ForecastDay: allDays)
                 DispatchQueue.main.async {
                     self?.forecastTableView.reloadData()
                     self?.forecastCollectionView.reloadData()
@@ -627,15 +627,15 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                         self?.present(alert, animated: true)
                     } else {
                         self?.currentCity.attributedText = NSAttributedString(string: city, attributes: [NSAttributedStringKey.font: UIFont.init(name: "MalgunGothic", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
-                        self?.currentDate.attributedText = NSAttributedString(string: current_.datetime!, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
-                        self?.currentTemp.attributedText = NSAttributedString(string: String(Int(round(current_.temp!))) + "°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "MalgunGothic", size: 80)!, NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
-                        self?.currentWind.attributedText = NSAttributedString(string: String(current_.wind_speed!), attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
-                        self?.currentCondition.attributedText = NSAttributedString(string: current_.condition!, attributes: [NSAttributedStringKey.font: UIFont.init(name: "MalgunGothic", size: 30)!, NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                        self?.currentDate.attributedText = NSAttributedString(string: current.datetime!, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                        self?.currentTemp.attributedText = NSAttributedString(string: String(Int(round(current.temp!))) + "°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "MalgunGothic", size: 80)!, NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                        self?.currentWind.attributedText = NSAttributedString(string: String(current.wind_speed!), attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                        self?.currentCondition.attributedText = NSAttributedString(string: current.condition!, attributes: [NSAttributedStringKey.font: UIFont.init(name: "MalgunGothic", size: 30)!, NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
                         self?.forecastTableView.reloadData()
                         self?.forecastCollectionView.reloadData()
                         let methods = Methods()
                         let forecastday_ = self?.currentForecastCity.AllForecastDay![0]
-                        var comment = methods.GetCurrentComment(Current : current_)
+                        var comment = methods.GetCurrentComment(Current : current)
                         comment += methods.GetThunderComment(forecastday: forecastday_!)
                         self?.comment.attributedText = NSAttributedString(string: comment, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
                        // var test = forecastday_?.GetThunderComment(forecastday: forecastday_!)
