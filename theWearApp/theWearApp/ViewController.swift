@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -18,7 +19,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 65, height: 65)
+        return CGSize(width: 90, height: 90)
     }
 }
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -26,7 +27,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == self.forecastTableView {
             return 7
         } else {
-            return 20
+            return (cities?.count)!
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -36,7 +37,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "Moscow"
+            cell.textLabel?.text = cities?[indexPath.row]
+            cell.textLabel?.textAlignment = .center
+            cell.backgroundColor = .clear
             return cell
         }
     }
@@ -53,7 +56,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
+    
+    let locationManager = CLLocationManager()
+    let hour = Calendar.current.component(.hour, from: Date()) // Current Hour
+    
+    var ResultForecastCity = ForecastCity()
+    var row : Int = 0
+    var allDates = [String](arrayLiteral: "","","","","","","")
+    var allTemps = [Double](arrayLiteral: 0,0,0,0,0,0,0)
+    // Добавил такую же переменную как и AllTemps и AllDates
+    var allHours = ["","","","","","","","","","","",""]
+    var allHourlyTemps = ["","","","","","","","","","","",""]
+    var currentForecastCity = ForecastCity() // полная информация
+    var CitySelectedFromPreferences = ""
     
     private let slideOutMenu: UIView = {
         let view = UIView()
@@ -65,7 +81,7 @@ class ViewController: UIViewController {
     private let favouriteCitiesTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .green
+        tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
@@ -115,7 +131,7 @@ class ViewController: UIViewController {
     private let currentLocation: UITextView = {
         let text = UITextView()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSMutableAttributedString(string: "Moscow", attributes: [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 15), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+        let attributedText = NSMutableAttributedString()
         text.attributedText = attributedText
         text.textAlignment = .center
         text.backgroundColor = .clear
@@ -128,7 +144,7 @@ class ViewController: UIViewController {
     private let currentTemperature: UITextView = {
         let text = UITextView()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSMutableAttributedString(string: "+23°", attributes: [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 80), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+        let attributedText = NSMutableAttributedString()
         text.attributedText = attributedText
         text.textAlignment = .center
         text.backgroundColor = .clear
@@ -141,7 +157,7 @@ class ViewController: UIViewController {
     private let currentCondition: UITextView = {
         let text = UITextView()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSMutableAttributedString(string: "Sunny", attributes: [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 25), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+        let attributedText = NSMutableAttributedString()
         text.attributedText = attributedText
         text.textAlignment = .center
         text.backgroundColor = .clear
@@ -154,7 +170,7 @@ class ViewController: UIViewController {
     private let currentAdvice: UITextView = {
         let text = UITextView()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSMutableAttributedString(string: "Please take your umbrella with you and also the uv index is 39960 so try to avoid shadowed places", attributes: [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 15), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+        let attributedText = NSMutableAttributedString()
         text.attributedText = attributedText
         text.textAlignment = .center
         text.backgroundColor = .clear
@@ -214,8 +230,8 @@ class ViewController: UIViewController {
         // Animate ViewController
         let transition = CATransition()
         transition.duration = 0.4
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionPush
+        transition.type = kCATransitionReveal
+        transition.subtype = kCATransitionReveal
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         self.view.window?.layer.add(transition, forKey: kCATransition)
         present(searchVC, animated: true, completion: nil)
@@ -229,11 +245,6 @@ class ViewController: UIViewController {
         }
     }
     @objc func OpenSlideOutMenu() {
-//        self.view.addSubview(self.blurEffectView)
-//        blurEffectView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-//        blurEffectView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//        blurEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         self.forecastTableView.isUserInteractionEnabled = false
         self.forecastCollectionView.isUserInteractionEnabled = false
         self.searchButton.isUserInteractionEnabled = false
@@ -244,9 +255,10 @@ class ViewController: UIViewController {
         self.currentCondition.isUserInteractionEnabled = false
         self.currentAdvice.isUserInteractionEnabled = false
         self.currentLocation.isUserInteractionEnabled = false
+        self.blurEffectView.isHidden = false
         UIView.animate(withDuration: 0.5) {
-//            self.blurEffectView.effect = UIBlurEffect(style: UIBlurEffectStyle.light)
             self.slideOutMenu.frame.origin.x = 0
+            self.blurEffectView.effect = UIBlurEffect(style: UIBlurEffectStyle.light)
         }
     }
     
@@ -266,18 +278,21 @@ class ViewController: UIViewController {
             self.searchButton.isEnabled = true
             UIView.animate(withDuration: 0.5) {
                 self.slideOutMenu.frame.origin.x = -250
+                self.blurEffectView.effect = nil
             }
+            self.blurEffectView.isHidden = true // Нужно улучшить, потому что колхоз
         }
+
     }
     
     
-//    private let blurEffectView: UIVisualEffectView = {
-//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-//        let blur = UIVisualEffectView(effect: blurEffect)
-//        blur.translatesAutoresizingMaskIntoConstraints = false
-//        blur.effect = nil
-//        return blur
-//    }()
+    let blurEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blur = UIVisualEffectView(effect: blurEffect)
+        blur.translatesAutoresizingMaskIntoConstraints = false
+        blur.effect = nil
+        return blur
+    }()
     
     private func LayOut() {
         view.addSubview(detailedView)
@@ -298,6 +313,12 @@ class ViewController: UIViewController {
         topStackView.addArrangedSubview(currentLocation)
         topStackView.addArrangedSubview(searchButton)
         view.addSubview(topStackView)
+        self.view.addSubview(self.blurEffectView)
+        blurEffectView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        blurEffectView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        blurEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        self.blurEffectView.isHidden = true
         view.addSubview(slideOutMenu)
         
         switch UIScreen.main.nativeBounds.height {
@@ -344,7 +365,7 @@ class ViewController: UIViewController {
             forecastCollectionView.leadingAnchor.constraint(equalTo: bottomStackView.leadingAnchor).isActive = true
             forecastCollectionView.trailingAnchor.constraint(equalTo: bottomStackView.trailingAnchor).isActive = true
             forecastCollectionView.bottomAnchor.constraint(equalTo: forecastTableView.topAnchor, constant: -25).isActive = true
-            forecastCollectionView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+            forecastCollectionView.heightAnchor.constraint(equalToConstant: 75).isActive = true
             forecastTableView.bottomAnchor.constraint(equalTo: bottomStackView.bottomAnchor).isActive = true
             forecastTableView.leadingAnchor.constraint(equalTo: bottomStackView.leadingAnchor).isActive = true
             forecastTableView.trailingAnchor.constraint(equalTo: bottomStackView.trailingAnchor).isActive = true
@@ -377,9 +398,145 @@ class ViewController: UIViewController {
         
     }
     
+    func UpdateInfo(location: String) {
+        
+        var allDates = [String]()
+        var allTempsdays = [Double]()
+        var allHours = [String]()
+        var allHourlyTemps = [String]()
+        let current_ = Current()
+        
+        let currentLocation = locationManager.location
+        let correctLocation = location.replacingOccurrences(of: " ", with: "%20")
+        let urlString = (location == "current") ? "https://api.apixu.com/v1/forecast.json?key=ef0ae6ee03be447ba2f215216180405&q=\(String(describing: currentLocation?.coordinate.latitude)),\(String(describing: currentLocation?.coordinate.longitude))&days=7" : "https://api.apixu.com/v1/forecast.json?key=ef0ae6ee03be447ba2f215216180405&q=\(correctLocation)&days=7"
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+                guard error == nil else {
+                    print("returned error")
+                    return
+                }
+                guard let data = data else { return }
+                guard let json = (try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String: Any] else {
+                        print("Not containing JSON")
+                        return
+                    }
+            
+                let current = json["current"] as! [String : AnyObject]
+                current_.temp = current["temp_c"] as? Double
+                current_.datetime = current["last_updated"] as? String
+                let condition = current["condition"] as! [String : AnyObject]
+                current_.condition = condition["text"] as? String
+                
+                current_.feelslike = current["feelslike_c"] as? Double
+                current_.wind_dir = current["wind_dir"] as? String
+                current_.wind_speed = current["wind_kph"] as? Double
+                current_.wind_speed = round(current_.wind_speed! * 5/18)
+                let forecast = json["forecast"] as! [String: AnyObject]
+                let forecastday = forecast["forecastday"] as! [AnyObject]
+                var allDays = [ForecastDay]()
+                for index in 0...6 {
+                    let day1 = forecastday[index] as? [String : AnyObject]
+                    var allhoursForDay = [AnyObject]()
+                    // Поля для forecastday
+                    let day = day1!["day"] as? [String : AnyObject]
+                    var date_ = day1!["date"] as? String
+                    var dateparts = date_?.components(separatedBy: "-")
+                    date_ = dateparts![2] + "." + dateparts![1]
+                    allDates.append(date_!)
+                    let comment_ = ""
+                    let maxtemp_ = day!["maxtemp_c"] as? Double
+                    let mintemp_ = day!["mintemp_c"] as? Double
+                    let avgtemp_ = day!["avgtemp_c"] as? Double
+                    allTempsdays.append(avgtemp_!)
+                    var wind_max_ = day!["maxwind_kph"] as? Double?
+                    wind_max_ = (wind_max_!)! * 5/18
+                    let avghum_ = day!["avghumidity"] as? Double
+                    let uv_ = day!["uv"] as! Double
+                    let text = day!["condition"] as? [String: AnyObject]
+                    let condition_ = text!["text"] as? String
+                    let hoursArr = day1!["hour"] as! [AnyObject]
+                    var counter = 24 // days
+                    for object in hoursArr {
+                        if counter>0 {
+                            let newHour = ForecastHour()
+                            let time = object["time"] as! String
+                            var timeArr = time.split(separator: " ")
+                            newHour.time = String(timeArr[1])
+                            newHour.feelslike = object["feelslike_c"] as? Double
+                            newHour.humidity = object["humidity"] as? Double
+                            newHour.pressure = object["pressure_mb"] as? Double
+                            let text = object["condition"] as! [String : AnyObject]
+                            newHour.condition = text["text"] as? String
+                            newHour.icon = text["icon"] as? String
+                            
+                            newHour.temperature = object["temp_c"] as? Double
+                            newHour.chance_of_rain = object["chance_of_rain"] as? String
+                            newHour.will_it_rain = object["will_it_rain"] as? Int
+                            newHour.will_it_snow = object["will_it_snow"] as? Int
+                            allhoursForDay.append(newHour)
+                            counter -= 1
+                        }
+                    }
+                    let newDay = ForecastDay(avg_temp_c: avgtemp_!, date: date_!,temperature_avg: avgtemp_!, temperature_max: maxtemp_!, temperature_min: mintemp_!, windSpeed_max: wind_max_!!, avghumidity: avghum_!, comment: comment_, condition: condition_!, uv: uv_, forecastHours: allhoursForDay as! [ForecastHour])
+                    newDay.date = date_!
+                    allDays.append(newDay)
+                    self.allDates = allDates
+                    self.allTemps = allTempsdays
+                }
+                if (self.hour) > 12 {
+                    for i in 0..<24 {
+                        allHours.append("\(i):00")
+                        allHourlyTemps.append("\(String(describing: Int(round(allDays[0].AllHours![i].temperature!))))°C")
+                    }
+                    if 24-(self.hour) < 12 {
+                        for i in 0...12-(24-(self.hour)) {
+                            allHours.append("\(i):00")
+                            allHourlyTemps.append("\(String(describing: Int(round(allDays[1].AllHours![i].temperature!))))°C")
+                        }
+                    }
+                } else {
+                    for i in 0...(self.hour)+12 {
+                        allHours.append("\(i):00")
+                        allHourlyTemps.append("\(String(describing: Int(round(allDays[0].AllHours![i].temperature!))))°C")
+                    }
+                }
+                self.allHours = allHours
+                self.allHourlyTemps = allHourlyTemps
+                self.currentForecastCity = ForecastCity(Current: current_, ForecastDay: allDays)
+                DispatchQueue.main.async {
+                    self.forecastTableView.reloadData()
+                    self.forecastCollectionView.reloadData()
+                    self.currentLocation.attributedText = NSMutableAttributedString(string: location, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                    self.currentTemperature.attributedText = NSMutableAttributedString(string: String(Int(round(current_.temp!))) + "°C", attributes: [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 80), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                    self.currentCondition.attributedText = NSMutableAttributedString(string: current_.condition!, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 30), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                    let methods = Methods()
+                    let forecastday_ = self.currentForecastCity.AllForecastDay![0]
+                    var comment = methods.GetCurrentComment(Current : current_)
+                    comment += methods.GetThunderComment(forecastday: forecastday_)
+                    self.currentAdvice.attributedText = NSMutableAttributedString(string: comment, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                    }
+                }.resume()
+        }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.favouriteCitiesTableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightBlue
+        
+        locationManager.requestAlwaysAuthorization()
+        if CLLocationManager.locationServicesEnabled()
+        {
+            locationManager.delegate = self
+            locationManager.startMonitoringSignificantLocationChanges()
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingHeading()
+        }
+        
         forecastTableView.delegate = self
         forecastTableView.dataSource = self
         favouriteCitiesTableView.delegate = self
@@ -388,6 +545,7 @@ class ViewController: UIViewController {
         forecastTableView.register(DayCell.self, forCellReuseIdentifier: "tableViewcell")
         forecastCollectionView.register(HourCell.self, forCellWithReuseIdentifier: "collectionViewCell")
         LayOut()
+        UpdateInfo(location: "Current location")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
