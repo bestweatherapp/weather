@@ -447,8 +447,10 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
         let correctCity = city.replacingOccurrences(of: " ", with: "%20")
         let urlString2 = "https://api.apixu.com/v1/forecast.json?key=ef0ae6ee03be447ba2f215216180405&q=Moscow&days=7"
         let url2 = URL(string: urlString2)
+        
         let task2 = URLSession.shared.dataTask(with: url2!) {[weak self](data, response, error) in
             do {
+                
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
                     as! [String : AnyObject]
                 guard let current = json["current"] as? [String : AnyObject]
@@ -466,7 +468,6 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                     return
                 }
                 current_.condition = condition["text"] as? String
-                
                 current_.feelslike = current["feelslike_c"] as? Double
                 current_.wind_dir = current["wind_dir"] as? String
                 current_.wind_speed = current["wind_kph"] as? Double

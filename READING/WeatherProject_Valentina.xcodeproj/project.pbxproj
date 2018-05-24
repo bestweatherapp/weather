@@ -269,7 +269,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A7B3E9B4209FC70E00D3A5D9 /* Build configuration list for PBXProject "READING_" */;
+			buildConfigurationList = A7B3E9B4209FC70E00D3A5D9 /* Build configuration list for PBXProject "WeatherProject_Valentina" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -599,7 +599,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A7B3E9B4209FC70E00D3A5D9 /* Build configuration list for PBXProject "READING_" */ = {
+		A7B3E9B4209FC70E00D3A5D9 /* Build configuration list for PBXProject "WeatherProject_Valentina" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A7B3E9E2209FC70F00D3A5D9 /* Debug */,
