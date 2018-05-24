@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         print(UserDefaults.standard.bool(forKey: "firstTimeOpened"))
-        if (UserDefaults.standard.bool(forKey: "firstTimeOpened")) { // Show ViewController
+        if !(UserDefaults.standard.bool(forKey: "firstTimeOpened")) { // Show ViewController
             window?.rootViewController = ViewController()
         } else { // Show WelcomeViewContoller
             let layout = UICollectionViewFlowLayout()
