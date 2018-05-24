@@ -57,14 +57,14 @@ class PreferencesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "ReturnToMain"){
             var transfData : ViewController =  (segue.destination as? ViewController)!
-            transfData.CitySelectedFromPreferences = self.selectedCity
+            transfData.citySelectedFromPreferences = self.selectedCity
         }
         if (segue.identifier == "GoToSearch")
         {
             var dataFromSearch : SearchingViewController =  (segue.destination as? SearchingViewController)!
             dataFromSearch.AllPreferences = self.PreferencesBase
         }
-    }
+    }//
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedCity = (PreferencesTableView.cellForRow(at: indexPath)?.textLabel?.text!)!
         performSegue(withIdentifier: "ReturnToMain", sender: Any?.self)
