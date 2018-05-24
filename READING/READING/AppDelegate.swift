@@ -125,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let calendar = Calendar(identifier: .gregorian)
         return calendar.date(from: components)!
-    }/////
+    }///////
     //Schedule Notification with weekly bases.
     func scheduleNotification(at date: Date, body: String, titles:String) {
         
