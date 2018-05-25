@@ -474,6 +474,7 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                     return
                 }
                 current.condition = condition_json["text"] as? String
+                current.iconURL = condition_json["icon"] as? String 
                 current.feelslike = current_json["feelslike_c"] as? Double
                 current.wind_dir = current_json["wind_dir"] as? String
                 current.wind_speed = current_json["wind_kph"] as? Double
@@ -558,6 +559,12 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                         self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
                         return
                     }
+                    guard let iconUrl  = text["icon"] as? String
+                        else
+                    {
+                        self?.AlertURLerror(message: "Sorry, some internet connection problems occured...")
+                        return
+                    }
                     guard let hoursArr = day1["hour"] as? [AnyObject]
                         else
                     {
@@ -598,7 +605,7 @@ class ViewController:  UIViewController, CLLocationManagerDelegate  {
                             counter = counter-1
                         }
                     }///
-                    let newDay = ForecastDay(avg_temp_c: avgtemp, date: date!,temperature_avg: avgtemp, temperature_max: maxtemp, temperature_min: mintemp, windSpeed_max: wind_max!, avghumidity: avghum, comment: comment, condition: condition, uv: uv, forecastHours: allhoursForDay as! [ForecastHour])
+                    let newDay = ForecastDay(avg_temp_c: avgtemp, date: date!, temperature_avg: avgtemp, temperature_max: maxtemp, temperature_min: mintemp, windSpeed_max: wind_max!, iconURL: iconUrl, avghumidity: avghum, comment: comment, condition: condition, uv: uv, forecastHours: allhoursForDay as! [ForecastHour])
                     newDay.date = date!
                     allDays.append(newDay)
                     self?.allDates = allDates

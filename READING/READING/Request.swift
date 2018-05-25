@@ -57,11 +57,13 @@ func UpdateInfo(city: String) {
                 let avgtemp_ = day!["avgtemp_c"] as? Double
                 allTempsdays.append(avgtemp_!)
                 let wind_max_ = (day!["maxwind_kph"] as? Double)! * 5/18
+                
                 let avghum_ = day!["avghumidity"] as? Double
                 let uv_ = day!["uv"] as? Double
                 
                 let text = day!["condition"] as? [String: AnyObject]
                 let condition_ = text!["text"] as? String
+                let icon = text!["icon"] as? String
                 let hoursArr = day1!["hour"] as? [AnyObject]
                 var counter = 24 // Days
                 for object in  hoursArr! {
@@ -84,7 +86,7 @@ func UpdateInfo(city: String) {
                         counter = counter - 1
                     }
                 }
-                let newDay = ForecastDay(avg_temp_c: avgtemp_!, date: date_!,temperature_avg: avgtemp_!, temperature_max: maxtemp_!, temperature_min: mintemp_!, windSpeed_max: wind_max_, avghumidity: avghum_!, comment: comment_, condition: condition_!, uv: uv_!, forecastHours: allhoursForDay as! [ForecastHour])
+                let newDay = ForecastDay(avg_temp_c: avgtemp_!, date: date_!,temperature_avg: avgtemp_!, temperature_max: maxtemp_!, temperature_min: mintemp_!, windSpeed_max: wind_max_, iconURL :icon!, avghumidity: avghum_!, comment: comment_, condition: condition_!, uv: uv_!, forecastHours: allhoursForDay as! [ForecastHour])
                 newDay.date = date_!
                 allDays.append(newDay)
 //                self?.allDates = allDates
