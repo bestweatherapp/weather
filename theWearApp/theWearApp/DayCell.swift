@@ -13,7 +13,7 @@ class DayCell: UITableViewCell {
     let date: UITextView = {
         let text = UITextView()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSAttributedString()
+        let attributedText = NSMutableAttributedString()
         text.attributedText = attributedText
         text.textAlignment = .left
         return text
