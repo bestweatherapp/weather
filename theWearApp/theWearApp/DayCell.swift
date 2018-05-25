@@ -10,12 +10,11 @@ import UIKit
 
 class DayCell: UITableViewCell {
     
-    let date: UITextView = {
-        let text = UITextView()
+    let date: UILabel = {
+        let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSMutableAttributedString()
-        text.attributedText = attributedText
         text.textAlignment = .left
+        text.numberOfLines = 2
         return text
     }()
     
@@ -25,56 +24,48 @@ class DayCell: UITableViewCell {
     }()
     
     let temperatureIcon: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "page2"))
+        let image = UIImageView()
         return image
     }()
     
-    let temperature: UITextView = {
-        let text = UITextView()
+    let temperature: UILabel = {
+        let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSAttributedString(string: "18 C", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 25)])
-        text.attributedText = attributedText
         text.textAlignment = .right
         return text
     }()
     
     private func LayOut() {
-        let dateAndTextView = UIView()
-        dateAndTextView.translatesAutoresizingMaskIntoConstraints = false
-        dateAndTextView.backgroundColor = .green
-        
-        let clothesView = UIView()
-        clothesView.translatesAutoresizingMaskIntoConstraints = false
-        clothesView.backgroundColor = .blue
-        
-        let weatherView = UIView()
-        weatherView.translatesAutoresizingMaskIntoConstraints = false
-        weatherView.backgroundColor = .purple
-        
-        let cellStackView = UIStackView(arrangedSubviews: [dateAndTextView, clothesView, weatherView])
+
+        let cellStackView = UIStackView(arrangedSubviews: [date, clothes, temperatureIcon, temperature])
         cellStackView.translatesAutoresizingMaskIntoConstraints = false
         cellStackView.axis = .horizontal
         addSubview(cellStackView)
         
-        cellStackView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
-        cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        cellStackView.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
+        cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
+        cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15).isActive = true
+        cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
         
-        dateAndTextView.topAnchor.constraint(equalTo: cellStackView.topAnchor).isActive = true
-        dateAndTextView.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor).isActive = true
-        dateAndTextView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor).isActive = true
-        dateAndTextView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        date.topAnchor.constraint(equalTo: cellStackView.topAnchor).isActive = true
+        date.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor).isActive = true
+        date.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor).isActive = true
+        date.widthAnchor.constraint(equalToConstant: 80).isActive = true
         
-        clothesView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        clothesView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        clothesView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        clothesView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        clothes.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        clothes.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        clothes.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        clothes.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
-        weatherView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor).isActive = true
-        weatherView.topAnchor.constraint(equalTo: cellStackView.topAnchor).isActive = true
-        weatherView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor).isActive = true
-        weatherView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        temperatureIcon.trailingAnchor.constraint(equalTo: temperature.leadingAnchor, constant: -10).isActive = true
+        temperatureIcon.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor).isActive = true
+        temperatureIcon.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        temperatureIcon.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        temperature.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor).isActive = true
+        temperature.topAnchor.constraint(equalTo: cellStackView.topAnchor).isActive = true
+        temperature.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor).isActive = true
+        temperature.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

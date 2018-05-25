@@ -26,6 +26,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         cities?.append(self.suitableCities[indexPath.row])
         dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "upF"), object: nil)
     }
     
     private let searchTextField: UITextField = {

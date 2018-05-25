@@ -1,0 +1,25 @@
+//
+//  DateFormaterFunctions.swift
+//  theWearApp
+//
+//  Created by Maxim Reshetov on 25.05.2018.
+//  Copyright © 2018 theWear. All rights reserved.
+//
+
+import UIKit
+
+func convertDateFormaterForDailyForecastForDate(_ date: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    let date = dateFormatter.date(from: date)
+    dateFormatter.dateFormat = "d MMM"
+    return dateFormatter.string(from: date!)
+}
+
+func convertDateFormaterForDailyForecastForDateDescription(_ date: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    let date = dateFormatter.date(from: date)
+    dateFormatter.dateFormat = "EEEE"
+    return dateFormatter.string(from: date!)
+}

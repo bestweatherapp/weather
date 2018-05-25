@@ -9,6 +9,28 @@
 import UIKit
 import CoreLocation
 
+// Extension for downloading image from the URL
+extension UIImageView {
+    func downloadedFrom(url: URL, contentMode mode: UIViewContentMode = .scaleAspectFit) {
+        contentMode = mode
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else { return }
+            DispatchQueue.main.async() {
+                self.image = image
+            }
+            }.resume()
+    }
+    func downloadedFrom(link: String, contentMode mode: UIViewContentMode = .scaleAspectFit) {
+        guard let url = URL(string: link) else { return }
+        downloadedFrom(url: url, contentMode: mode)
+    }
+}
+
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 12
@@ -19,7 +41,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 90, height: 90)
+        return CGSize(width: 70, height: 70)
     }
 }
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -33,7 +55,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.forecastTableView {
             let cell = forecastTableView.dequeueReusableCell(withIdentifier: "tableViewcell", for: indexPath) as! DayCell
-            cell.date.attributedText = NSAttributedString(string: "Today", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 25)])
+            
+            cell.date.attributedText = NSAttributedString(string: allDates[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!])
+            cell.temperature.attributedText = NSAttributedString(string: String(Int(round(allTemps[indexPath.row]))) + "°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!])
+            cell.temperatureIcon.contentMode = .scaleToFill
+            cell.temperatureIcon.downloadedFrom(link: allTempsIcons[indexPath.row])
             return cell
         } else {
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
@@ -64,7 +90,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var ResultForecastCity = ForecastCity()
     var row : Int = 0
     var allDates = [String](arrayLiteral: "","","","","","","")
-    var allTemps = [Double](arrayLiteral: 0,0,0,0,0,0,0)
+    var allTemps = [Double](repeating: 0, count: 7)
+    var allTempsIcons = [String](arrayLiteral: "","","","","","","")
     // Добавил такую же переменную как и AllTemps и AllDates
     var allHours = ["","","","","","","","","","","",""]
     var allHourlyTemps = ["","","","","","","","","","","",""]
@@ -86,6 +113,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         return tableView
     }()
     
+    private let updateWithCurrentLocationButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "currentLocation"), for: .normal)
+        button.setAttributedTitle(NSMutableAttributedString(string: "Current location", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 15), NSAttributedStringKey.foregroundColor:UIColor.dark]), for: .normal)
+        button.isSelected = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(UpdateWithCurrentLocation), for: .touchUpInside)
+        return button
+    }()
+    
     private let detailedView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -97,7 +134,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -128,55 +165,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         return button
     }()
     
-    private let currentLocation: UITextView = {
-        let text = UITextView()
+    private let currentLocation: UILabel = {
+        let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSMutableAttributedString()
-        text.attributedText = attributedText
         text.textAlignment = .center
         text.backgroundColor = .clear
-        text.isEditable = false
-        text.isScrollEnabled = false
-        text.isSelectable = false
         return text
     }()
    
-    private let currentTemperature: UITextView = {
-        let text = UITextView()
+    private let currentTemperature: UILabel = {
+        let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSMutableAttributedString()
-        text.attributedText = attributedText
         text.textAlignment = .center
         text.backgroundColor = .clear
-        text.isEditable = false
-        text.isScrollEnabled = false
-        text.isSelectable = false
         return text
     }()
     
-    private let currentCondition: UITextView = {
-        let text = UITextView()
+    private let currentCondition: UILabel = {
+        let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSMutableAttributedString()
-        text.attributedText = attributedText
         text.textAlignment = .center
         text.backgroundColor = .clear
-        text.isEditable = false
-        text.isScrollEnabled = false
-        text.isSelectable = false
         return text
     }()
     
-    private let currentAdvice: UITextView = {
-        let text = UITextView()
+    private let currentAdvice: UILabel = {
+        let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        let attributedText = NSMutableAttributedString()
-        text.attributedText = attributedText
         text.textAlignment = .center
         text.backgroundColor = .clear
-        text.isEditable = false
-        text.isScrollEnabled = false
-        text.isSelectable = false
+        text.numberOfLines = 3
         return text
     }()
     
@@ -262,6 +280,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    @objc func UpdateWithCurrentLocation() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "upF"), object: nil)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
         if touch?.view != self.slideOutMenu {
@@ -297,6 +319,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private func LayOut() {
         view.addSubview(detailedView)
         slideOutMenu.addSubview(favouriteCitiesTableView)
+        slideOutMenu.addSubview(updateWithCurrentLocationButton)
         
         detailedView.addSubview(closeDetailedViewButton)
         detailedView.addSubview(scrollView)
@@ -326,7 +349,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             print("iPhone 5")
         case 1334:
             print("iPhone 6")
-            
             slideOutMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -290).isActive = true
             slideOutMenu.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
             slideOutMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -337,10 +359,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             closeDetailedViewButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
             closeDetailedViewButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
             
-            favouriteCitiesTableView.topAnchor.constraint(equalTo: slideOutMenu.topAnchor, constant: 100).isActive = true
-            favouriteCitiesTableView.bottomAnchor.constraint(equalTo: slideOutMenu.bottomAnchor, constant: -100).isActive = true
+            favouriteCitiesTableView.topAnchor.constraint(equalTo: slideOutMenu.topAnchor, constant: 150).isActive = true
+            favouriteCitiesTableView.bottomAnchor.constraint(equalTo: slideOutMenu.bottomAnchor, constant: -150).isActive = true
             favouriteCitiesTableView.leadingAnchor.constraint(equalTo: slideOutMenu.leadingAnchor, constant: 50).isActive = true
             favouriteCitiesTableView.trailingAnchor.constraint(equalTo: slideOutMenu.trailingAnchor, constant: -50).isActive = true
+            
+            updateWithCurrentLocationButton.bottomAnchor.constraint(equalTo: favouriteCitiesTableView.topAnchor, constant: -10).isActive = true
+            updateWithCurrentLocationButton.leadingAnchor.constraint(equalTo: slideOutMenu.leadingAnchor, constant: 15).isActive = true
+            updateWithCurrentLocationButton.trailingAnchor.constraint(equalTo: slideOutMenu.trailingAnchor, constant: -15).isActive = true
+            updateWithCurrentLocationButton.widthAnchor.constraint(equalToConstant: 15).isActive = true
+            
             
             scrollView.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 75).isActive = true
             scrollView.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor).isActive = true
@@ -354,10 +382,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             middleStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25).isActive = true
             middleStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25).isActive = true
-            middleStackView.bottomAnchor.constraint(equalTo: bottomStackView.topAnchor, constant: -10).isActive = true
-            middleStackView.heightAnchor.constraint(equalToConstant: 190).isActive = true
+            middleStackView.bottomAnchor.constraint(equalTo: bottomStackView.topAnchor, constant: -5).isActive = true
+            middleStackView.heightAnchor.constraint(equalToConstant: 210).isActive = true
             
-            topStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+            currentTemperature.topAnchor.constraint(equalTo: middleStackView.topAnchor, constant: 10).isActive = true
+            currentTemperature.bottomAnchor.constraint(equalTo: currentCondition.topAnchor, constant: -5).isActive = true
+            currentTemperature.leadingAnchor.constraint(equalTo: middleStackView.leadingAnchor).isActive = true
+            currentTemperature.trailingAnchor.constraint(equalTo: middleStackView.trailingAnchor).isActive = true
+            
+            currentCondition.bottomAnchor.constraint(equalTo: currentAdvice.topAnchor, constant: -5).isActive = true
+            currentCondition.leadingAnchor.constraint(equalTo: middleStackView.leadingAnchor).isActive = true
+            currentCondition.trailingAnchor.constraint(equalTo: middleStackView.trailingAnchor).isActive = true
+            
+            currentAdvice.bottomAnchor.constraint(equalTo: middleStackView.bottomAnchor).isActive = true
+            currentAdvice.leadingAnchor.constraint(equalTo: middleStackView.leadingAnchor).isActive = true
+            currentAdvice.trailingAnchor.constraint(equalTo: middleStackView.trailingAnchor).isActive = true
+            currentAdvice.heightAnchor.constraint(equalToConstant: 70).isActive = true
+            
+            topStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
             topStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25).isActive = true
             topStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25).isActive = true
             topStackView.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -402,13 +444,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         var allDates = [String]()
         var allTempsdays = [Double]()
+        var allTempsdaysIcons = [String]()
         var allHours = [String]()
         var allHourlyTemps = [String]()
         let current_ = Current()
-        
-        let currentLocation = locationManager.location
+        let currentLocation : CLLocation!
+        currentLocation = locationManager.location
         let correctLocation = location.replacingOccurrences(of: " ", with: "%20")
-        let urlString = (location == "current") ? "https://api.apixu.com/v1/forecast.json?key=ef0ae6ee03be447ba2f215216180405&q=\(String(describing: currentLocation?.coordinate.latitude)),\(String(describing: currentLocation?.coordinate.longitude))&days=7" : "https://api.apixu.com/v1/forecast.json?key=ef0ae6ee03be447ba2f215216180405&q=\(correctLocation)&days=7"
+        let urlString = (location == "Current location") ? "https://api.apixu.com/v1/forecast.json?key=ef0ae6ee03be447ba2f215216180405&q=\(String(describing: currentLocation.coordinate.latitude)),\(String(describing: currentLocation.coordinate.longitude))&days=7" : "https://api.apixu.com/v1/forecast.json?key=ef0ae6ee03be447ba2f215216180405&q=\(correctLocation)&days=7"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             
@@ -422,51 +465,55 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         return
                     }
             
-                let current = json["current"] as! [String : AnyObject]
+            guard let current = json["current"] as?  [String : AnyObject] else {return}
                 current_.temp = current["temp_c"] as? Double
                 current_.datetime = current["last_updated"] as? String
-                let condition = current["condition"] as! [String : AnyObject]
+                guard let condition = current["condition"] as? [String : AnyObject] else {return}
                 current_.condition = condition["text"] as? String
-                
+                current_.iconURL = condition["icon"] as? String
                 current_.feelslike = current["feelslike_c"] as? Double
                 current_.wind_dir = current["wind_dir"] as? String
                 current_.wind_speed = current["wind_kph"] as? Double
                 current_.wind_speed = round(current_.wind_speed! * 5/18)
-                let forecast = json["forecast"] as! [String: AnyObject]
+                guard let forecast = json["forecast"] as? [String: AnyObject] else {return}
                 let forecastday = forecast["forecastday"] as! [AnyObject]
                 var allDays = [ForecastDay]()
                 for index in 0...6 {
-                    let day1 = forecastday[index] as? [String : AnyObject]
+                    guard let day1 = forecastday[index] as? [String : AnyObject] else {return}
                     var allhoursForDay = [AnyObject]()
                     // Поля для forecastday
-                    let day = day1!["day"] as? [String : AnyObject]
-                    var date_ = day1!["date"] as? String
-                    var dateparts = date_?.components(separatedBy: "-")
-                    date_ = dateparts![2] + "." + dateparts![1]
-                    allDates.append(date_!)
+                    guard let day = day1["day"] as? [String : AnyObject] else {return}
+                    let date_ = day1["date"] as? String
+                    if index == 0 {
+                        allDates.append("Today\n\(convertDateFormaterForDailyForecastForDate(date_!))")
+                    } else {
+                        allDates.append("\(convertDateFormaterForDailyForecastForDateDescription(date_!))\n\(convertDateFormaterForDailyForecastForDate(date_!))")
+                    }
                     let comment_ = ""
-                    let maxtemp_ = day!["maxtemp_c"] as? Double
-                    let mintemp_ = day!["mintemp_c"] as? Double
-                    let avgtemp_ = day!["avgtemp_c"] as? Double
-                    allTempsdays.append(avgtemp_!)
-                    var wind_max_ = day!["maxwind_kph"] as? Double?
-                    wind_max_ = (wind_max_!)! * 5/18
-                    let avghum_ = day!["avghumidity"] as? Double
-                    let uv_ = day!["uv"] as! Double
-                    let text = day!["condition"] as? [String: AnyObject]
-                    let condition_ = text!["text"] as? String
-                    let hoursArr = day1!["hour"] as! [AnyObject]
+                    guard let maxtemp_ = day["maxtemp_c"] as? Double else {return}
+                    guard let mintemp_ = day["mintemp_c"] as? Double else {return}
+                    guard let avgtemp_ = day["avgtemp_c"] as? Double else {return}
+                    allTempsdays.append(avgtemp_)
+                    guard var wind_max_ = day["maxwind_kph"] as? Double? else {return}
+                    wind_max_ = (wind_max_!) * 5/18
+                    guard let avghum_ = day["avghumidity"] as? Double else {return}
+                    guard let uv_ = day["uv"] as? Double else {return}
+                    guard let text = day["condition"] as? [String: AnyObject] else {return}
+                    guard let condition_ = text["text"] as? String else {return}
+                    guard let iconUrl  = text["icon"] as? String else {return}
+                    allTempsdaysIcons.append("https://" + iconUrl)
+                    guard let hoursArr = day1["hour"] as? [AnyObject] else {return}
                     var counter = 24 // days
                     for object in hoursArr {
                         if counter>0 {
                             let newHour = ForecastHour()
-                            let time = object["time"] as! String
+                            guard let time = object["time"] as? String else {return}
                             var timeArr = time.split(separator: " ")
                             newHour.time = String(timeArr[1])
                             newHour.feelslike = object["feelslike_c"] as? Double
                             newHour.humidity = object["humidity"] as? Double
                             newHour.pressure = object["pressure_mb"] as? Double
-                            let text = object["condition"] as! [String : AnyObject]
+                            guard let text = object["condition"] as? [String : AnyObject] else {return}
                             newHour.condition = text["text"] as? String
                             newHour.icon = text["icon"] as? String
                             
@@ -478,12 +525,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             counter -= 1
                         }
                     }
-                    let newDay = ForecastDay(avg_temp_c: avgtemp_!, date: date_!,temperature_avg: avgtemp_!, temperature_max: maxtemp_!, temperature_min: mintemp_!, windSpeed_max: wind_max_!!, avghumidity: avghum_!, comment: comment_, condition: condition_!, uv: uv_, forecastHours: allhoursForDay as! [ForecastHour])
+                    let newDay = ForecastDay(avg_temp_c: avgtemp_, date: date_!,temperature_avg: avgtemp_, temperature_max: maxtemp_, temperature_min: mintemp_, windSpeed_max: wind_max_!, iconURL: iconUrl, avghumidity: avghum_, comment: comment_, condition: condition_, uv: uv_, forecastHours: allhoursForDay as! [ForecastHour])
+                    newDay.date = date_!
+                    allDays.append(newDay)
+                    
                     newDay.date = date_!
                     allDays.append(newDay)
                     self.allDates = allDates
                     self.allTemps = allTempsdays
                 }
+                self.allTempsIcons = allTempsdaysIcons
+            
                 if (self.hour) > 12 {
                     for i in 0..<24 {
                         allHours.append("\(i):00")
@@ -505,28 +557,33 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 self.allHourlyTemps = allHourlyTemps
                 self.currentForecastCity = ForecastCity(Current: current_, ForecastDay: allDays)
                 DispatchQueue.main.async {
-                    self.forecastTableView.reloadData()
-                    self.forecastCollectionView.reloadData()
-                    self.currentLocation.attributedText = NSMutableAttributedString(string: location, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
-                    self.currentTemperature.attributedText = NSMutableAttributedString(string: String(Int(round(current_.temp!))) + "°C", attributes: [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 80), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
-                    self.currentCondition.attributedText = NSMutableAttributedString(string: current_.condition!, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 30), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
-                    let methods = Methods()
-                    let forecastday_ = self.currentForecastCity.AllForecastDay![0]
-                    var comment = methods.GetCurrentComment(Current : current_)
-                    comment += methods.GetThunderComment(forecastday: forecastday_)
-                    self.currentAdvice.attributedText = NSMutableAttributedString(string: comment, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15), NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
-                    }
+                        self.forecastTableView.reloadData()
+                        self.forecastCollectionView.reloadData()
+                        self.currentLocation.attributedText = NSMutableAttributedString(string: location, attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                        self.currentTemperature.attributedText = NSMutableAttributedString(string: String(Int(round(current_.temp!))) + "°C", attributes: [NSAttributedStringKey.font:UIFont.init(name: "SFProDisplay-Light", size: 80)!, NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                        self.currentCondition.attributedText = NSMutableAttributedString(string: current_.condition!, attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 30)!, NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+                        let methods = Methods()
+                        let forecastday_ = self.currentForecastCity.AllForecastDay![0]
+                        var comment = methods.GetCurrentComment(Current : current_)
+                        comment += methods.GetThunderComment(forecastday: forecastday_)
+                        self.currentAdvice.attributedText = NSMutableAttributedString(string: comment, attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!, NSAttributedStringKey.foregroundColor:UIColor(white: 1, alpha: 0.9)])
+
+                }
                 }.resume()
         }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    @objc func UpdateFavourits() {
         self.favouriteCitiesTableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightBlue
+        NotificationCenter.default.addObserver(self, selector: #selector(UpdateFavourits), name: NSNotification.Name(rawValue: "upF"), object: nil)
         
         locationManager.requestAlwaysAuthorization()
         if CLLocationManager.locationServicesEnabled()

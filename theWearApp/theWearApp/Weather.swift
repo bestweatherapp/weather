@@ -16,6 +16,7 @@ class Current : Methods
     var wind_speed : Double?
     var wind_dir : String?
     var feelslike : Double?
+    var iconURL : String?
     override init (){}
 }
 
@@ -55,10 +56,10 @@ class ForecastDay : Methods
     var windSpeed_max:Double?//
     var avghumidity: Double?//
     var comment: String?//
+    var iconURL : String?
     var uv : Double?//
     var AllHours :  [ForecastHour]?
-    init(avg_temp_c : Double, date: String,temperature_avg:Double,temperature_max:Double,temperature_min:Double, windSpeed_max:Double,
-         avghumidity: Double,  comment: String, condition : String, uv : Double, forecastHours : [ForecastHour])
+    init(avg_temp_c : Double, date: String,temperature_avg:Double,temperature_max:Double,temperature_min:Double, windSpeed_max:Double, iconURL : String, avghumidity: Double,  comment: String, condition : String, uv : Double, forecastHours : [ForecastHour])
     {
         self.avg_temp_c = avg_temp_c
         self.condition = condition
@@ -69,6 +70,7 @@ class ForecastDay : Methods
         self.avghumidity=avghumidity
         self.comment=comment
         self.uv = uv
+        self.iconURL = iconURL
         AllHours = forecastHours
     }
     override init(){}

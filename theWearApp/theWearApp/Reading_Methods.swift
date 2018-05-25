@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 class ReadingMethods
 {
     // нет вхождения в
@@ -68,6 +67,7 @@ class ReadingMethods
                     
                     let text = day!["condition"] as? [String: AnyObject]
                     let condition_ = text!["text"] as? String
+                    let icon = text!["icon"] as? String
                     let hoursArr = day1!["hour"] as? [AnyObject]
                     var counter = 24 // days
                     for object in hoursArr!
@@ -93,7 +93,7 @@ class ReadingMethods
                             counter = counter-1
                         }
                     }
-                    var newDay = ForecastDay(avg_temp_c: avgtemp_!, date: date_!,temperature_avg: avgtemp_!, temperature_max: maxtemp_!, temperature_min: mintemp_!, windSpeed_max: wind_max_, avghumidity: avghum_!, comment: comment_, condition: condition_!, uv: uv_!, forecastHours: allhoursForDay as! [ForecastHour])
+                    let newDay = ForecastDay(avg_temp_c: avgtemp_!, date: date_!,temperature_avg: avgtemp_!, temperature_max: maxtemp_!, temperature_min: mintemp_!, windSpeed_max: wind_max_, iconURL :icon!, avghumidity: avghum_!, comment: comment_, condition: condition_!, uv: uv_!, forecastHours: allhoursForDay as! [ForecastHour])
                     newDay.date = date_!
                     print(newDay.date!)
                     allDays.append(newDay)
@@ -114,5 +114,6 @@ class ReadingMethods
     }
     
 }
+
 
 

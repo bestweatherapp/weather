@@ -10,7 +10,7 @@ import Foundation
 class Methods
 {
     func GetCurrentComment (Current : Current) -> String {
-        var comment_ = Current.condition! + ". "
+        var comment_ = ""
         switch (Double(Current.temp!)) {
         case -1..<10:
             switch (Double(Current.wind_speed!))
@@ -25,30 +25,29 @@ class Methods
         default:
             comment_ += ""
         }
-        comment_ += "Currently: "
         switch (Int(Current.feelslike!)){
         case -50 ..< -30:
-            comment_ += " extremely cold. Avoid being outside unless dressed properly! "
+            comment_ += " Extremely cold. Avoid being outside unless dressed properly! "
         case -30 ..< -10:
-            comment_ += " very cold. Dress warmly! "
+            comment_ += " Very cold. Dress warmly! "
         case -10..<0:
-            comment_ +=  " frosty weather, put on your coat, scarf and gloves. "
+            comment_ +=  " Frosty weather, put on your coat, scarf and gloves. "
         case 0..<3:
-            comment_ += " mind the freezing! Stay warm. "
+            comment_ += " Mind the freezing! Stay warm. "
         case 3..<7:
-            comment_ += " quite cool, put on a jacket . "
+            comment_ += " Quite cool, put on a jacket . "
         case 7..<13:
-            comment_ += " comfortable weather, put on a cape of a windbreaker. "
+            comment_ += " Comfortable weather, put on a cape of a windbreaker. "
         case 13..<17:
-            comment_ += " quite warm, put on some light clothes but also take a jumper. "
+            comment_ += " Quite warm, put on some light clothes but also take a jumper. "
         case 17..<20:
-            comment_ += " warm weather, put on a longsleeve and jeans. "
+            comment_ += " Warm weather, put on a longsleeve and jeans. "
         case 20..<25:
-            comment_ += " comfortable warm weather, put on a t-shirt or polo "
+            comment_ += " Comfortable warm weather, put on a t-shirt or polo "
         case  25..<30:
-            comment_ += " hot weather, better put on a t-shirt and shorts  "
+            comment_ += " Hot weather, better put on a t-shirt and shorts  "
         case 30..<50:
-            comment_ += " extremely hot! Put on the lightest clothes. "
+            comment_ += " Extremely hot! Put on the lightest clothes. "
         default:
             comment_ = " There is no comment "
         }
@@ -68,7 +67,7 @@ class Methods
                 if ((element.condition!.range(of: "thunder")) != nil) || ((element.condition! == "Thundery outbreaks possible, be careful"))
                 {
                     thunderanytime = true
-                    comment += " Don't forget your umbrella!"
+                    comment += "Don't forget your umbrella!"
                 }
             }
         }

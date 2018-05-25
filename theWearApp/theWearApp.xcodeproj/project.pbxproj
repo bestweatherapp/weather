@@ -21,6 +21,12 @@
 		BA5630E620B76B730052FAD2 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5630E520B76B730052FAD2 /* Weather.swift */; };
 		BA5630E820B76B950052FAD2 /* Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5630E720B76B940052FAD2 /* Methods.swift */; };
 		BA5630EA20B771E50052FAD2 /* Reading_Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5630E920B771E50052FAD2 /* Reading_Methods.swift */; };
+		BA5630EC20B8755C0052FAD2 /* DateFormaterFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5630EB20B8755C0052FAD2 /* DateFormaterFunctions.swift */; };
+		BA5630F120B87DF00052FAD2 /* NanumGothic-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA5630EE20B87DF00052FAD2 /* NanumGothic-ExtraBold.ttf */; };
+		BA5630F220B87DF00052FAD2 /* NanumGothic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA5630EF20B87DF00052FAD2 /* NanumGothic-Bold.ttf */; };
+		BA5630F320B87DF00052FAD2 /* NanumGothic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA5630F020B87DF00052FAD2 /* NanumGothic-Regular.ttf */; };
+		BA5630F620B88ECD0052FAD2 /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA5630F420B88DA10052FAD2 /* SF-Pro-Display-Light.otf */; };
+		BA5630F720B88ED20052FAD2 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA5630F520B88DAD0052FAD2 /* SF-Pro-Display-Medium.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +46,12 @@
 		BA5630E520B76B730052FAD2 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		BA5630E720B76B940052FAD2 /* Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Methods.swift; sourceTree = "<group>"; };
 		BA5630E920B771E50052FAD2 /* Reading_Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reading_Methods.swift; sourceTree = "<group>"; };
+		BA5630EB20B8755C0052FAD2 /* DateFormaterFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormaterFunctions.swift; sourceTree = "<group>"; };
+		BA5630EE20B87DF00052FAD2 /* NanumGothic-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumGothic-ExtraBold.ttf"; sourceTree = "<group>"; };
+		BA5630EF20B87DF00052FAD2 /* NanumGothic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumGothic-Bold.ttf"; sourceTree = "<group>"; };
+		BA5630F020B87DF00052FAD2 /* NanumGothic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumGothic-Regular.ttf"; sourceTree = "<group>"; };
+		BA5630F420B88DA10052FAD2 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
+		BA5630F520B88DAD0052FAD2 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +70,7 @@
 			children = (
 				BA20553520B52BBC00EB9DDC /* theWearApp */,
 				BA20553420B52BBC00EB9DDC /* Products */,
+				BA5630ED20B87DF00052FAD2 /* fonts */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +98,7 @@
 				BA5630E520B76B730052FAD2 /* Weather.swift */,
 				BA5630E720B76B940052FAD2 /* Methods.swift */,
 				BA5630E920B771E50052FAD2 /* Reading_Methods.swift */,
+				BA5630EB20B8755C0052FAD2 /* DateFormaterFunctions.swift */,
 			);
 			path = theWearApp;
 			sourceTree = "<group>";
@@ -97,6 +111,18 @@
 				BA5630DA20B5EB0E0052FAD2 /* Page.swift */,
 			);
 			path = WelcomePage;
+			sourceTree = "<group>";
+		};
+		BA5630ED20B87DF00052FAD2 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				BA5630EE20B87DF00052FAD2 /* NanumGothic-ExtraBold.ttf */,
+				BA5630EF20B87DF00052FAD2 /* NanumGothic-Bold.ttf */,
+				BA5630F020B87DF00052FAD2 /* NanumGothic-Regular.ttf */,
+				BA5630F420B88DA10052FAD2 /* SF-Pro-Display-Light.otf */,
+				BA5630F520B88DAD0052FAD2 /* SF-Pro-Display-Medium.otf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,8 +183,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA5630F720B88ED20052FAD2 /* SF-Pro-Display-Medium.otf in Resources */,
+				BA5630F620B88ECD0052FAD2 /* SF-Pro-Display-Light.otf in Resources */,
+				BA5630F120B87DF00052FAD2 /* NanumGothic-ExtraBold.ttf in Resources */,
+				BA5630F320B87DF00052FAD2 /* NanumGothic-Regular.ttf in Resources */,
 				BA20554120B52BBD00EB9DDC /* LaunchScreen.storyboard in Resources */,
 				BA20553E20B52BBD00EB9DDC /* Assets.xcassets in Resources */,
+				BA5630F220B87DF00052FAD2 /* NanumGothic-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +202,7 @@
 			files = (
 				BA5630D720B5E2F90052FAD2 /* WelcomePage.swift in Sources */,
 				BA5630E420B739CD0052FAD2 /* FavouriteCities.swift in Sources */,
+				BA5630EC20B8755C0052FAD2 /* DateFormaterFunctions.swift in Sources */,
 				BA5630E020B6297D0052FAD2 /* HourCell.swift in Sources */,
 				BA5630E220B6A5DD0052FAD2 /* SearchViewController.swift in Sources */,
 				BA5630E620B76B730052FAD2 /* Weather.swift in Sources */,
