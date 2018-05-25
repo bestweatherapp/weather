@@ -117,7 +117,7 @@ func GetFutureComment (day: ForecastDay, avgmorning : Double, avgday : Double, a
         case  25..<35:
             if (Int((day.temperature_avg)!) > 29) && (Int(day.avghumidity!) > 70)
             {
-                comment += " Very hot outside. Mind the dehydrayion! "
+                comment += " Very hot outside. Mind the dehydration! "
             }
             else { comment += " Very hot outside. Mind the sunstroke, please! "}
         case 35..<43:
