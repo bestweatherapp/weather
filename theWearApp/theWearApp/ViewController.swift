@@ -30,14 +30,15 @@ extension UIImageView {
         downloadedFrom(url: url, contentMode: mode)
     }
 }
-
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 12
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = forecastCollectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! HourCell
-        
+        cell.hour.attributedText = NSAttributedString(string: allHours[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 12)!])
+        cell.temperatureIcon.downloadedFrom(link: allHourlyTempsIcons[indexPath.row])
+        cell.temperature.attributedText = NSAttributedString(string: allHourlyTemps[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 14)!])
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -56,25 +57,48 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == self.forecastTableView {
             let cell = forecastTableView.dequeueReusableCell(withIdentifier: "tableViewcell", for: indexPath) as! DayCell
             
-            cell.date.attributedText = NSAttributedString(string: allDates[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!])
-            cell.temperature.attributedText = NSAttributedString(string: String(Int(round(allTemps[indexPath.row]))) + "°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!])
+            cell.date.attributedText = NSAttributedString(string: allDates[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 13)!])
+            cell.temperature.attributedText = NSAttributedString(string: allTemps[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!])
+            cell.backgroundColor = .clear
             cell.temperatureIcon.contentMode = .scaleToFill
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
             cell.temperatureIcon.downloadedFrom(link: allTempsIcons[indexPath.row])
             return cell
         } else {
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.textLabel?.text = cities?[indexPath.row]
             cell.textLabel?.textAlignment = .center
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
             cell.backgroundColor = .clear
             return cell
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.4) {
-            self.topStackView.frame.origin.x = -self.view.frame.width
-            self.middleStackView.frame.origin.x = -self.view.frame.width
-            self.bottomStackView.frame.origin.x = -self.view.frame.width
-            self.detailedView.frame.origin.x = 25
+        if tableView == self.forecastTableView {
+            UIView.animate(withDuration: 0.4) {
+                self.topStackView.frame.origin.x = -self.view.frame.width
+                self.middleStackView.frame.origin.x = -self.view.frame.width
+                self.bottomStackView.frame.origin.x = -self.view.frame.width
+                self.detailedView.frame.origin.x = 25
+            }
+        } else {
+            self.forecastTableView.isUserInteractionEnabled = true
+            self.forecastCollectionView.isUserInteractionEnabled = true
+            self.searchButton.isUserInteractionEnabled = true
+            self.bottomStackView.isUserInteractionEnabled = true
+            self.topStackView.isUserInteractionEnabled = true
+            self.middleStackView.isUserInteractionEnabled = true
+            self.currentTemperature.isUserInteractionEnabled = true
+            self.currentCondition.isUserInteractionEnabled = true
+            self.currentAdvice.isUserInteractionEnabled = true
+            self.currentLocation.isUserInteractionEnabled = true
+            self.searchButton.isEnabled = true
+            UpdateInfo(location: cities![(favouriteCitiesTableView.indexPathForSelectedRow?.row)!])
+            UIView.animate(withDuration: 0.4) {
+                    self.slideOutMenu.frame.origin.x = -250
+                    self.blurEffectView.effect = nil
+            }
+            self.blurEffectView.isHidden = true // Нужно улучшить, потому что колхоз
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -89,12 +113,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var ResultForecastCity = ForecastCity()
     var row : Int = 0
-    var allDates = [String](arrayLiteral: "","","","","","","")
-    var allTemps = [Double](repeating: 0, count: 7)
-    var allTempsIcons = [String](arrayLiteral: "","","","","","","")
+    var allDates = [String](repeating: "", count: 7)
+    var allTemps = [String](repeating: "", count: 7)
+    var allTempsIcons = [String](repeating: "", count: 7)
     // Добавил такую же переменную как и AllTemps и AllDates
-    var allHours = ["","","","","","","","","","","",""]
-    var allHourlyTemps = ["","","","","","","","","","","",""]
+    var allHours = [String](repeating: "", count: 12)
+    var allHourlyTemps = [String](repeating: "", count: 12)
+    var allHourlyTempsIcons = [String](repeating: "", count: 12)
     var currentForecastCity = ForecastCity() // полная информация
     var CitySelectedFromPreferences = ""
     
@@ -115,7 +140,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     private let updateWithCurrentLocationButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "currentLocation"), for: .normal)
         button.setAttributedTitle(NSMutableAttributedString(string: "Current location", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 15), NSAttributedStringKey.foregroundColor:UIColor.dark]), for: .normal)
         button.isSelected = false
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -252,6 +276,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         transition.subtype = kCATransitionReveal
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         self.view.window?.layer.add(transition, forKey: kCATransition)
+        self.forecastTableView.isUserInteractionEnabled = false
+        self.forecastCollectionView.isUserInteractionEnabled = false
+        self.searchButton.isUserInteractionEnabled = false
+        self.bottomStackView.isUserInteractionEnabled = false
+        self.topStackView.isUserInteractionEnabled = false
+        self.middleStackView.isUserInteractionEnabled = false
+        self.currentTemperature.isUserInteractionEnabled = false
+        self.currentCondition.isUserInteractionEnabled = false
+        self.currentAdvice.isUserInteractionEnabled = false
+        self.currentLocation.isUserInteractionEnabled = false
+        self.blurEffectView.isHidden = false
+        UIView.animate(withDuration: 0.5) {
+            self.blurEffectView.effect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        }
         present(searchVC, animated: true, completion: nil)
     }
     @objc func CloseDetailedView() {
@@ -281,12 +319,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @objc func UpdateWithCurrentLocation() {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "upF"), object: nil)
+        UpdateInfo(location: "Current location")
+        UIView.animate(withDuration: 0.4) {
+            self.slideOutMenu.frame.origin.x = -250
+            self.blurEffectView.effect = nil
+        }
+        self.blurEffectView.isHidden = true // Нужно улучшить, потому что колхоз
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
-        if touch?.view != self.slideOutMenu {
+        if touch?.view != self.slideOutMenu && self.slideOutMenu.frame.origin.x == 0 {
             self.forecastTableView.isUserInteractionEnabled = true
             self.forecastCollectionView.isUserInteractionEnabled = true
             self.searchButton.isUserInteractionEnabled = true
@@ -320,6 +363,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         view.addSubview(detailedView)
         slideOutMenu.addSubview(favouriteCitiesTableView)
         slideOutMenu.addSubview(updateWithCurrentLocationButton)
+        slideOutMenu.addSubview(updateWithCurrentLocationButton)
+        
+        updateWithCurrentLocationButton.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        
         
         detailedView.addSubview(closeDetailedViewButton)
         detailedView.addSubview(scrollView)
@@ -390,9 +437,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             currentTemperature.leadingAnchor.constraint(equalTo: middleStackView.leadingAnchor).isActive = true
             currentTemperature.trailingAnchor.constraint(equalTo: middleStackView.trailingAnchor).isActive = true
             
-            currentCondition.bottomAnchor.constraint(equalTo: currentAdvice.topAnchor, constant: -5).isActive = true
+            currentCondition.bottomAnchor.constraint(equalTo: currentAdvice.topAnchor).isActive = true
             currentCondition.leadingAnchor.constraint(equalTo: middleStackView.leadingAnchor).isActive = true
             currentCondition.trailingAnchor.constraint(equalTo: middleStackView.trailingAnchor).isActive = true
+            currentCondition.heightAnchor.constraint(equalToConstant: 40).isActive = true
             
             currentAdvice.bottomAnchor.constraint(equalTo: middleStackView.bottomAnchor).isActive = true
             currentAdvice.leadingAnchor.constraint(equalTo: middleStackView.leadingAnchor).isActive = true
@@ -443,10 +491,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func UpdateInfo(location: String) {
         
         var allDates = [String]()
-        var allTempsdays = [Double]()
+        var allTempsdays = [String]()
         var allTempsdaysIcons = [String]()
         var allHours = [String]()
         var allHourlyTemps = [String]()
+        var allHourlyTempsIcons = [String]()
         let current_ = Current()
         let currentLocation : CLLocation!
         currentLocation = locationManager.location
@@ -493,7 +542,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     guard let maxtemp_ = day["maxtemp_c"] as? Double else {return}
                     guard let mintemp_ = day["mintemp_c"] as? Double else {return}
                     guard let avgtemp_ = day["avgtemp_c"] as? Double else {return}
-                    allTempsdays.append(avgtemp_)
                     guard var wind_max_ = day["maxwind_kph"] as? Double? else {return}
                     wind_max_ = (wind_max_!) * 5/18
                     guard let avghum_ = day["avghumidity"] as? Double else {return}
@@ -501,7 +549,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     guard let text = day["condition"] as? [String: AnyObject] else {return}
                     guard let condition_ = text["text"] as? String else {return}
                     guard let iconUrl  = text["icon"] as? String else {return}
-                    allTempsdaysIcons.append("https://" + iconUrl)
+                    allTempsdaysIcons.append("https:" + iconUrl)
                     guard let hoursArr = day1["hour"] as? [AnyObject] else {return}
                     var counter = 24 // days
                     for object in hoursArr {
@@ -526,35 +574,40 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         }
                     }
                     let newDay = ForecastDay(avg_temp_c: avgtemp_, date: date_!,temperature_avg: avgtemp_, temperature_max: maxtemp_, temperature_min: mintemp_, windSpeed_max: wind_max_!, iconURL: iconUrl, avghumidity: avghum_, comment: comment_, condition: condition_, uv: uv_, forecastHours: allhoursForDay as! [ForecastHour])
+                    allTempsdays.append("\(Int(round(newDay.AllHours![12].temperature!)))°  \(Int(round(newDay.AllHours![0].temperature!)))°")
                     newDay.date = date_!
                     allDays.append(newDay)
                     
                     newDay.date = date_!
                     allDays.append(newDay)
-                    self.allDates = allDates
-                    self.allTemps = allTempsdays
                 }
+                self.allDates = allDates
+                self.allTemps = allTempsdays
                 self.allTempsIcons = allTempsdaysIcons
             
                 if (self.hour) > 12 {
-                    for i in 0..<24 {
+                    for i in (self.hour)..<24 {
                         allHours.append("\(i):00")
                         allHourlyTemps.append("\(String(describing: Int(round(allDays[0].AllHours![i].temperature!))))°C")
+                        allHourlyTempsIcons.append("https:" + allDays[0].AllHours![i].icon!)
                     }
                     if 24-(self.hour) < 12 {
                         for i in 0...12-(24-(self.hour)) {
                             allHours.append("\(i):00")
                             allHourlyTemps.append("\(String(describing: Int(round(allDays[1].AllHours![i].temperature!))))°C")
+                            allHourlyTempsIcons.append("https:" + allDays[1].AllHours![i].icon!)
                         }
                     }
                 } else {
-                    for i in 0...(self.hour)+12 {
+                    for i in (self.hour)...(self.hour)+12 {
                         allHours.append("\(i):00")
                         allHourlyTemps.append("\(String(describing: Int(round(allDays[0].AllHours![i].temperature!))))°C")
+                        allHourlyTempsIcons.append("https:" + allDays[0].AllHours![i].icon!)
                     }
                 }
                 self.allHours = allHours
                 self.allHourlyTemps = allHourlyTemps
+                self.allHourlyTempsIcons = allHourlyTempsIcons
                 self.currentForecastCity = ForecastCity(Current: current_, ForecastDay: allDays)
                 DispatchQueue.main.async {
                         self.forecastTableView.reloadData()
@@ -580,10 +633,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.favouriteCitiesTableView.reloadData()
     }
     
+    @objc func ClosingSearchVC() {
+        self.forecastTableView.isUserInteractionEnabled = true
+        self.forecastCollectionView.isUserInteractionEnabled = true
+        self.searchButton.isUserInteractionEnabled = true
+        self.bottomStackView.isUserInteractionEnabled = true
+        self.topStackView.isUserInteractionEnabled = true
+        self.middleStackView.isUserInteractionEnabled = true
+        self.currentTemperature.isUserInteractionEnabled = true
+        self.currentCondition.isUserInteractionEnabled = true
+        self.currentAdvice.isUserInteractionEnabled = true
+        self.currentLocation.isUserInteractionEnabled = true
+        self.searchButton.isEnabled = true
+        UIView.animate(withDuration: 0.5) {
+            self.blurEffectView.effect = nil
+        }
+        self.blurEffectView.isHidden = true // Нужно улучшить, потому что колхоз
+    }
+    
+    @objc func updateUntillLaunch() {
+        UpdateInfo(location: "Current location")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightBlue
         NotificationCenter.default.addObserver(self, selector: #selector(UpdateFavourits), name: NSNotification.Name(rawValue: "upF"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ClosingSearchVC), name: NSNotification.Name(rawValue: "closeSVC"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUntillLaunch), name: NSNotification.Name(rawValue: "untillLaunch"), object: nil)
         
         locationManager.requestAlwaysAuthorization()
         if CLLocationManager.locationServicesEnabled()

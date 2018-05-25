@@ -26,6 +26,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         cities?.append(self.suitableCities[indexPath.row])
         dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "closeSVC"), object: nil)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "upF"), object: nil)
     }
     
@@ -72,6 +73,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         transition.subtype = kCATransitionReveal
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         self.view.window?.layer.add(transition, forKey: kCATransition)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "closeSVC"), object: nil)
         dismiss(animated: true, completion: nil)
     }
     

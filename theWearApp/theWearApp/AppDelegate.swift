@@ -9,11 +9,15 @@
 import UIKit
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
+    class func sharedinstance() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow()
@@ -24,16 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             cities = [String]()
         }
-        
-        print(UserDefaults.standard.bool(forKey: "firstTimeOpened"))
-        if !(UserDefaults.standard.bool(forKey: "firstTimeOpened")) { // Show ViewController
-            window?.rootViewController = ViewController()
-        } else { // Show WelcomeViewContoller
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
-            let welcomePage = WelcomePage(collectionViewLayout: layout)
-            window?.rootViewController = welcomePage
-        }
+        window?.rootViewController = SplashScreen()
         return true
     }
 

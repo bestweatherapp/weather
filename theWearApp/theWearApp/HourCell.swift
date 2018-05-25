@@ -10,25 +10,36 @@ import UIKit
 
 class HourCell: UICollectionViewCell {
     
+    let hour: UILabel = {
+        let text = UILabel()
+        text.translatesAutoresizingMaskIntoConstraints = false
+        text.backgroundColor = .clear
+        text.textAlignment = .center
+        text.numberOfLines = 1
+        return text
+    }()
+    
+    let temperatureIcon: UIImageView = {
+        let image = UIImageView()
+        return image
+    }()
+    
+    let temperature: UILabel = {
+        let text = UILabel()
+        text.translatesAutoresizingMaskIntoConstraints = false
+        text.backgroundColor = .clear
+        text.textAlignment = .center
+        return text
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         LayOut()
     }
     
     private func LayOut() {
-        let hourView = UIView()
-        hourView.translatesAutoresizingMaskIntoConstraints = false
-        hourView.backgroundColor = .green
         
-        let temperatureIconView = UIView()
-        temperatureIconView.translatesAutoresizingMaskIntoConstraints = false
-        temperatureIconView.backgroundColor = .blue
-        
-        let weatherView = UIView()
-        weatherView.translatesAutoresizingMaskIntoConstraints = false
-        weatherView.backgroundColor = .purple
-        
-        let cellStackView = UIStackView(arrangedSubviews: [hourView, temperatureIconView, weatherView])
+        let cellStackView = UIStackView(arrangedSubviews: [hour, temperatureIcon, temperature])
         cellStackView.translatesAutoresizingMaskIntoConstraints = false
         cellStackView.axis = .vertical
         
@@ -39,20 +50,20 @@ class HourCell: UICollectionViewCell {
         cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
-        hourView.topAnchor.constraint(equalTo: cellStackView.topAnchor).isActive = true
-        hourView.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor).isActive = true
-        hourView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor).isActive = true
-        hourView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        hour.topAnchor.constraint(equalTo: cellStackView.topAnchor).isActive = true
+        hour.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor).isActive = true
+        hour.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor).isActive = true
+        hour.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
-        temperatureIconView.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor).isActive = true
-        temperatureIconView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor).isActive = true
+        temperatureIcon.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor).isActive = true
+        temperatureIcon.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor).isActive = true
         //temperatureIconView.topAnchor.constraint(equalTo: hourView.bottomAnchor).isActive = true
-        temperatureIconView.heightAnchor.constraint(equalToConstant: 65).isActive = true
+        temperatureIcon.heightAnchor.constraint(equalToConstant: 65).isActive = true
         
-        weatherView.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor).isActive = true
-        weatherView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor).isActive = true
+        temperature.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor).isActive = true
+        temperature.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor).isActive = true
         //weatherView.topAnchor.constraint(equalTo: temperatureIconView.bottomAnchor).isActive = true
-        weatherView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        temperature.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
     }
     
