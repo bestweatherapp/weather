@@ -29,6 +29,7 @@
 		BA5630F720B88ED20052FAD2 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA5630F520B88DAD0052FAD2 /* SF-Pro-Display-Medium.otf */; };
 		BA5630FB20B8D3E50052FAD2 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA5630FA20B8D3CB0052FAD2 /* SF-Pro-Display-Bold.otf */; };
 		BA71B91920B9B621008DABAF /* SF-Pro-Display-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA71B91820B9B606008DABAF /* SF-Pro-Display-Ultralight.otf */; };
+		BA71B91B20BA01DF008DABAF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA71B91A20BA01DF008DABAF /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		BA5630F520B88DAD0052FAD2 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
 		BA5630FA20B8D3CB0052FAD2 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		BA71B91820B9B606008DABAF /* SF-Pro-Display-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Ultralight.otf"; sourceTree = "<group>"; };
+		BA71B91A20BA01DF008DABAF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				BA5630E720B76B940052FAD2 /* Methods.swift */,
 				BA5630E920B771E50052FAD2 /* Reading_Methods.swift */,
 				BA5630EB20B8755C0052FAD2 /* DateFormaterFunctions.swift */,
+				BA71B91A20BA01DF008DABAF /* SettingsViewController.swift */,
 			);
 			path = theWearApp;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				BA20553920B52BBD00EB9DDC /* ViewController.swift in Sources */,
 				BA5630D920B5EA110052FAD2 /* PageCell.swift in Sources */,
 				BA5630E820B76B950052FAD2 /* Methods.swift in Sources */,
+				BA71B91B20BA01DF008DABAF /* SettingsViewController.swift in Sources */,
 				BA20553720B52BBD00EB9DDC /* AppDelegate.swift in Sources */,
 				BA5630EA20B771E50052FAD2 /* Reading_Methods.swift in Sources */,
 				BA5630DE20B629710052FAD2 /* DayCell.swift in Sources */,

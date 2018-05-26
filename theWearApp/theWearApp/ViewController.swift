@@ -36,9 +36,9 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = forecastCollectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! HourCell
-        cell.hour.attributedText = NSAttributedString(string: allHours[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 12)!])
+        cell.hour.attributedText = NSAttributedString(string: allHours[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 12)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
         cell.temperatureIcon.downloadedFrom(link: allHourlyTempsIcons[indexPath.row])
-        cell.temperature.attributedText = NSAttributedString(string: allHourlyTemps[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 14)!])
+        cell.temperature.attributedText = NSAttributedString(string: allHourlyTemps[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 14)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -57,8 +57,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == self.forecastTableView {
             let cell = forecastTableView.dequeueReusableCell(withIdentifier: "tableViewcell", for: indexPath) as! DayCell
             
-            cell.date.attributedText = NSAttributedString(string: allDates[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 13)!])
-            cell.temperature.attributedText = NSAttributedString(string: allTemps[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!])
+            cell.date.attributedText = NSAttributedString(string: allDates[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 13)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+            cell.temperature.attributedText = NSAttributedString(string: allTemps[indexPath.row], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
             cell.backgroundColor = .clear
             cell.temperatureIcon.contentMode = .scaleToFill
             cell.selectionStyle = UITableViewCellSelectionStyle.none
@@ -82,20 +82,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 self.detailedView.frame.origin.x = 25
             }
             self.morningTempIconForDetailedWindow.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![7].icon!)
-            self.morningTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![7].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
-            self.morningTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![7].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
+            self.morningTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![7].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+            self.morningTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![7].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
             
             self.afternoonTempIconForDetailedWindow.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![12].icon!)
-            self.afternoonTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![12].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
-            self.afternoonTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![12].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
+            self.afternoonTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![12].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+            self.afternoonTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![12].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
             
             self.eveningTempIconForDetailedWindow.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![18].icon!)
-            self.eveningTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![18].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
-            self.eveningTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![18].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
+            self.eveningTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![18].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+            self.eveningTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![18].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
             
             self.nightTempIconForDetailedWindow.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![0].icon!)
-            self.nightTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![0].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
-            self.nightTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![0].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
+            self.nightTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![0].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+            self.nightTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![0].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
         } else {
             self.forecastTableView.isUserInteractionEnabled = true
             self.forecastCollectionView.isUserInteractionEnabled = true
@@ -145,6 +145,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         return view
     }()
     
+    private let settingsButton: UIButton = {
+        let button = UIButton()
+        button.isSelected = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(openSettingsVC), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func openSettingsVC() {
+        let vc = SettingsViewController()
+        present(vc, animated: true, completion: nil)
+    }
+    
     private let favouriteCitiesTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -155,7 +168,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     private let updateWithCurrentLocationButton: UIButton = {
         let button = UIButton()
-        button.setAttributedTitle(NSMutableAttributedString(string: "Current location", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 15), NSAttributedStringKey.foregroundColor:UIColor.dark]), for: .normal)
+        button.setAttributedTitle(NSMutableAttributedString(string: "Current location", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 15), NSAttributedStringKey.foregroundColor:UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 100)]), for: .normal)
         button.isSelected = false
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(UpdateWithCurrentLocation), for: .touchUpInside)
@@ -163,7 +176,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }()
     
     private let backgroundImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "default"))
+        let image = UIImageView(image: UIImage(named: "5704"))
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -185,6 +198,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         return view
     }()
     
+    private let exampleDescription: UILabel = {
+        let text = UILabel()
+        text.textAlignment = .center
+        text.numberOfLines = 4
+        text.translatesAutoresizingMaskIntoConstraints = false
+        text.attributedText = NSAttributedString(string: "-\n-\n-\n-", attributes: nil)
+        return text
+    }()
+    
     // Morning
     private let morningTempForDetailedWindow: UILabel = {
         let text = UILabel()
@@ -201,7 +223,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private let morningTempDescriptionForDetailedWindow: UILabel = {
         let text = UILabel()
         text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "Morning", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!])
+        text.attributedText = NSAttributedString(string: "Morning", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -215,7 +237,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private let afternoonTempForDetailedWindow: UILabel = {
         let text = UILabel()
         text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "23 C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -228,7 +249,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private let afternoonTempDescriptionForDetailedWindow: UILabel = {
         let text = UILabel()
         text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "Afternoon", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!])
+        text.attributedText = NSAttributedString(string: "Afternoon", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -242,7 +263,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private let eveningTempForDetailedWindow: UILabel = {
         let text = UILabel()
         text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "23 C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -255,7 +275,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private let eveningTempDescriptionForDetailedWindow: UILabel = {
         let text = UILabel()
         text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "Evening", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!])
+        text.attributedText = NSAttributedString(string: "Evening", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -269,7 +289,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private let nightTempForDetailedWindow: UILabel = {
         let text = UILabel()
         text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "23 C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!])
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -282,7 +301,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private let nightTempDescriptionForDetailedWindow: UILabel = {
         let text = UILabel()
         text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "Night", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!])
+        text.attributedText = NSAttributedString(string: "Night", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -525,6 +544,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         detailedView.addSubview(closeDetailedViewButton)
         detailedView.addSubview(scrollView)
         scrollView.addSubview(detailedTop)
+        scrollView.addSubview(exampleDescription)
         bottomStackView.addArrangedSubview(forecastCollectionView)
         bottomStackView.addArrangedSubview(forecastTableView)
         view.addSubview(bottomStackView)
@@ -576,6 +596,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             print("iPhone 5")
         case 1334:
             print("iPhone 6")
+            
+            exampleDescription.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 310).isActive = true
+            exampleDescription.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 60).isActive = true
+            exampleDescription.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -60).isActive = true
+            exampleDescription.heightAnchor.constraint(equalToConstant: 310).isActive = true
+            
             slideOutMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -290).isActive = true
             slideOutMenu.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
             slideOutMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -683,7 +709,38 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             nightTempDescriptionForDetailedWindow.centerXAnchor.constraint(equalTo: nightTempForDetailedWindow.centerXAnchor).isActive = true
             nightTempDescriptionForDetailedWindow.widthAnchor.constraint(equalToConstant: 55).isActive = true
             nightTempDescriptionForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            //----------------------
+            //----------------------]
+            let DescriptionLine1 = UIBezierPath()
+            DescriptionLine1.move(to: CGPoint(x: 25, y: 290))
+            DescriptionLine1.addLine(to: CGPoint(x: 130, y: 290))
+            // Create a `CAShapeLayer` that uses that `UIBezierPath`:
+            let shapeLayer5 = CAShapeLayer()
+            shapeLayer5.path = DescriptionLine1.cgPath
+            shapeLayer5.strokeColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80).cgColor
+            shapeLayer5.fillColor = UIColor.clear.cgColor
+            shapeLayer5.lineWidth = 1
+            detailedView.layer.addSublayer(shapeLayer5)
+            //-------------
+            let descp = UILabel()
+            descp.translatesAutoresizingMaskIntoConstraints = false
+            descp.attributedText = NSAttributedString(string: "Description", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Ultralight", size: 13)!])
+            detailedView.addSubview(descp)
+            descp.centerXAnchor.constraint(equalTo: detailedView.centerXAnchor).isActive = true
+            descp.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 280).isActive = true
+            //-------------
+            let DescriptionLine2 = UIBezierPath()
+            DescriptionLine2.move(to: CGPoint(x: 195, y: 290))
+            DescriptionLine2.addLine(to: CGPoint(x: 300, y: 290))
+            // Create a `CAShapeLayer` that uses that `UIBezierPath`:
+            let shapeLayer32 = CAShapeLayer()
+            shapeLayer32.path = DescriptionLine2.cgPath
+            shapeLayer32.strokeColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80).cgColor
+            shapeLayer32.fillColor = UIColor.clear.cgColor
+            shapeLayer32.lineWidth = 1
+            detailedView.layer.addSublayer(shapeLayer32)
+            //-------------
+           
+            
             //-------Lines
             let topLine = UIBezierPath()
             topLine.move(to: CGPoint(x: 25, y: 85))
@@ -691,18 +748,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             // Create a `CAShapeLayer` that uses that `UIBezierPath`:
             let shapeLayer1 = CAShapeLayer()
             shapeLayer1.path = topLine.cgPath
-            shapeLayer1.strokeColor = UIColor.dark.cgColor
+            shapeLayer1.strokeColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80).cgColor
             shapeLayer1.fillColor = UIColor.clear.cgColor
             shapeLayer1.lineWidth = 1
             detailedView.layer.addSublayer(shapeLayer1)
             //-------------
             let feelsLikeLine1 = UIBezierPath()
             feelsLikeLine1.move(to: CGPoint(x: 25, y: 225))
-            feelsLikeLine1.addLine(to: CGPoint(x: 130, y: 225))
+            feelsLikeLine1.addLine(to: CGPoint(x: 135, y: 225))
             // Create a `CAShapeLayer` that uses that `UIBezierPath`:
             let shapeLayer2 = CAShapeLayer()
             shapeLayer2.path = feelsLikeLine1.cgPath
-            shapeLayer2.strokeColor = UIColor.dark.cgColor
+            shapeLayer2.strokeColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80).cgColor
             shapeLayer2.fillColor = UIColor.clear.cgColor
             shapeLayer2.lineWidth = 1
             detailedView.layer.addSublayer(shapeLayer2)
@@ -720,7 +777,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             // Create a `CAShapeLayer` that uses that `UIBezierPath`:
             let shapeLayer3 = CAShapeLayer()
             shapeLayer3.path = feelsLikeLine2.cgPath
-            shapeLayer3.strokeColor = UIColor.dark.cgColor
+            shapeLayer3.strokeColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80).cgColor
             shapeLayer3.fillColor = UIColor.clear.cgColor
             shapeLayer3.lineWidth = 1
             detailedView.layer.addSublayer(shapeLayer3)
