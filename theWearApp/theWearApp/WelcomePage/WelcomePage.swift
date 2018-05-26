@@ -39,7 +39,7 @@ class WelcomePage: UICollectionViewController, UICollectionViewDelegateFlowLayou
     
     private let nextButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Далее", for: .normal)
+        button.setTitle("Next", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.setTitleColor(.dark, for: .normal)
@@ -58,13 +58,13 @@ class WelcomePage: UICollectionViewController, UICollectionViewDelegateFlowLayou
     }()
     
     @objc private func handleNext() {
-        previousButton.setTitle("Назад", for: .normal)
+        previousButton.setTitle("Back", for: .normal)
         let nextIndex = min(pageControl.currentPage + 1, pages.count - 1)
         let indexPath = IndexPath(item: nextIndex, section: 0)
         if indexPath.item == 2 {
-            nextButton.setTitle("Начать", for: .normal)
+            nextButton.setTitle("Start", for: .normal)
         } else {
-           nextButton.setTitle("Далее", for: .normal)
+           nextButton.setTitle("Next", for: .normal)
         }
         if pageControl.currentPage == indexPath.item {
 //            After that WelcomePage will be closed and will never appear again
@@ -82,7 +82,7 @@ class WelcomePage: UICollectionViewController, UICollectionViewDelegateFlowLayou
         if indexPath.item == 0 {
             previousButton.setTitle("", for: .normal)
         } else {
-            nextButton.setTitle("Далее", for: .normal)
+            nextButton.setTitle("Next", for: .normal)
         }
         pageControl.currentPage = nextIndex
         collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)

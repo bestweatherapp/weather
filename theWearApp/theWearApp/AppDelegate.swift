@@ -14,10 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    class func sharedinstance() -> AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow()
@@ -28,7 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             cities = [String]()
         }
-        window?.rootViewController = SplashScreen()
+        
+        if !(UserDefaults.standard.bool(forKey: "firstTimeOpened")) {
+           window?.rootViewController = ViewController()
+        } else {
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .horizontal
+            let welcomePage = WelcomePage(collectionViewLayout: layout)
+            window?.rootViewController = welcomePage
+        }
         return true
     }
 

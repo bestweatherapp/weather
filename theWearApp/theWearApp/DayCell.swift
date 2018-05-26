@@ -22,6 +22,7 @@ class DayCell: UITableViewCell {
     
     let clothes: UIScrollView = {
         let view = UIScrollView()
+        
         view.backgroundColor = .clear
         return view
     }()
