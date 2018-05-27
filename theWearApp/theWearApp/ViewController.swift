@@ -75,27 +75,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.forecastTableView {
-            UIView.animate(withDuration: 0.4) {
-                self.topStackView.frame.origin.x = -self.view.frame.width
-                self.middleStackView.frame.origin.x = -self.view.frame.width
-                self.bottomStackView.frame.origin.x = -self.view.frame.width
-                self.detailedView.frame.origin.x = 25
-            }
-            self.morningTempIconForDetailedWindow.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![7].icon!)
-            self.morningTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![7].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-            self.morningTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![7].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-            
-            self.afternoonTempIconForDetailedWindow.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![12].icon!)
-            self.afternoonTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![12].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-            self.afternoonTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![12].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-            
-            self.eveningTempIconForDetailedWindow.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![18].icon!)
-            self.eveningTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![18].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-            self.eveningTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![18].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-            
-            self.nightTempIconForDetailedWindow.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![0].icon!)
-            self.nightTempForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![0].temperature!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-            self.nightTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: "\(Int(round(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![0].feelslike!)))°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+//            updateDetailedView(index: indexPath.row)
+                    UIView.animate(withDuration: 0.8) {
+                        print("1")
+                        self.topStackView.frame.origin.x = -self.view.frame.width
+                        self.middleStackView.frame.origin.x = -self.view.frame.width
+                        self.bottomStackView.frame.origin.x = -self.view.frame.width
+                        self.detailedView.frame.origin.x = 25
+                    }
+
         } else {
             self.forecastTableView.isUserInteractionEnabled = true
             self.forecastCollectionView.isUserInteractionEnabled = true
@@ -116,6 +104,33 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             self.blurEffectView.isHidden = true // Нужно улучшить, потому что колхоз
         }
     }
+//
+//    func updateDetailedView(index: Int) {
+//
+//                        let tempIcons = [("https:" + self.currentForecastCity.AllForecastDay![index].AllHours![7].icon!), ("https:" + self.currentForecastCity.AllForecastDay![index].AllHours![12].icon!), ("https:" + self.currentForecastCity.AllForecastDay![index].AllHours![18].icon!), ("https:" + self.currentForecastCity.AllForecastDay![index].AllHours![0].icon!)]
+//                        let temps = ["\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![7].temperature!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![12].temperature!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![18].temperature!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![0].temperature!)))°C"]
+//                        let tempsFeelsLike = ["\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![7].feelslike!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![12].feelslike!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![18].feelslike!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![0].feelslike!)))°C"]
+//
+//
+//                            self.morningTempIconForDetailedWindow.downloadedFrom(link: tempIcons[0])
+//                            self.morningTempForDetailedWindow.attributedText = NSAttributedString(string: temps[0], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+//                            self.morningTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: tempsFeelsLike[0], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+//
+//                            self.afternoonTempIconForDetailedWindow.downloadedFrom(link: tempIcons[1])
+//                            self.afternoonTempForDetailedWindow.attributedText = NSAttributedString(string: temps[1], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+//                            self.afternoonTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: tempsFeelsLike[1], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+//
+//                            self.eveningTempIconForDetailedWindow.downloadedFrom(link: tempIcons[2])
+//                            self.eveningTempForDetailedWindow.attributedText = NSAttributedString(string: temps[2], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+//                            self.eveningTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: tempsFeelsLike[2], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+//                            print("check")
+//                            self.nightTempIconForDetailedWindow.downloadedFrom(link: tempIcons[3])
+//                            self.nightTempForDetailedWindow.attributedText = NSAttributedString(string: temps[3], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+//                            self.nightTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: tempsFeelsLike[3], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+//
+//    }
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(70)
     }
@@ -148,14 +163,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private let settingsButton: UIButton = {
         let button = UIButton()
         button.isSelected = false
+        button.setImage(UIImage(named: "settings"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(openSettingsVC), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showSettings), for: .touchUpInside)
         return button
     }()
     
-    @objc func openSettingsVC() {
-        let vc = SettingsViewController()
-        present(vc, animated: true, completion: nil)
+    @objc func showSettings() {
+        let set = SettingsViewController()
+        set.modalPresentationStyle = .overCurrentContext
+        present(set, animated: true, completion: nil)
     }
     
     private let favouriteCitiesTableView: UITableView = {
@@ -589,6 +606,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         blurEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         self.blurEffectView.isHidden = true
+        slideOutMenu.addSubview(settingsButton)
+        
+        settingsButton.topAnchor.constraint(equalTo: slideOutMenu.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        settingsButton.leadingAnchor.constraint(equalTo: slideOutMenu.leadingAnchor, constant: 25).isActive = true
+        settingsButton.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        settingsButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        
         view.addSubview(slideOutMenu)
         
         switch UIScreen.main.nativeBounds.height {
