@@ -268,6 +268,7 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
                 var allDays = [ForecastDay]()
                 for index in 0...6
                 {
+                    print("it worksssss")
                     let day1 = forecastday![index] as? [String : AnyObject]
                     var allhoursForDay = [AnyObject]()
                     //поля для forecastday
