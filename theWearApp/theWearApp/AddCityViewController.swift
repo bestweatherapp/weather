@@ -1,15 +1,15 @@
 //
-//  SearchViewController.swift
+//  AddCityViewController.swift
 //  theWearApp
 //
-//  Created by Maxim Reshetov on 24.05.2018.
+//  Created by Maxim Reshetov on 30.05.2018.
 //  Copyright © 2018 theWear. All rights reserved.
 //
 
 import UIKit
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     private var pendingRequestWorkItem: DispatchWorkItem?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,6 +25,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dismiss(animated: true, completion: nil)
+        cities?.append(self.suitableCities[indexPath.row])
         NotificationCenter.default.post(name: Notification.Name(rawValue: "closeSVC"), object: nil)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "upF"), object: nil)
     }
@@ -39,23 +40,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-    
-    private let searchView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 30
-        view.backgroundColor = UIColor(white: 1, alpha: 0.9)
-        return view
-    }()
-    
-    private let closeSearchViewButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "closeGray"), for: .normal)
-        button.addTarget(self, action: #selector(CloseSearchVC), for: .touchUpInside)
-        return button
-    }()
-    
+
     private let suitableCititesTableView: UITableView = {
         let tableView = UITableView()
         tableView.showsVerticalScrollIndicator = false
@@ -64,18 +49,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
-    @objc func CloseSearchVC() {
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.type = kCATransitionReveal
-        transition.subtype = kCATransitionReveal
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        self.view.window?.layer.add(transition, forKey: kCATransition)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "closeSVC"), object: nil)
-        dismiss(animated: true, completion: nil)
-    }
-    
+ 
     @objc func textFieldDidChange(_ textField: UITextField) {
         pendingRequestWorkItem?.cancel()
         
@@ -84,7 +58,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self?.suitableCititesTableView.reloadData()
             self?.SuitableCitiesRequest(inputText: textField.text!)
         }
-    
+        
         pendingRequestWorkItem = requestWorkitem
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250), execute: requestWorkitem)
     }
@@ -124,35 +98,27 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         task.resume()
     }
     
-    private func LayOut() {
-        view.addSubview(searchView)
-        searchView.addSubview(closeSearchViewButton)
-        searchView.addSubview(searchTextField)
-        searchView.addSubview(suitableCititesTableView)
-        closeSearchViewButton.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -25).isActive = true
-        closeSearchViewButton.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 25).isActive = true
-        closeSearchViewButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        closeSearchViewButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        searchView.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        searchView.heightAnchor.constraint(equalToConstant: 450).isActive = true
-        searchView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        searchView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        searchTextField.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 90).isActive = true
-        searchTextField.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 25).isActive = true
-        searchTextField.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -25).isActive = true
-        suitableCititesTableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 15).isActive = true
-        suitableCititesTableView.leadingAnchor.constraint(equalTo: searchView.leadingAnchor).isActive = true
-        suitableCititesTableView.trailingAnchor.constraint(equalTo: searchView.trailingAnchor).isActive = true
-        suitableCititesTableView.bottomAnchor.constraint(equalTo: searchView.bottomAnchor).isActive = true
+    private let closeAddVC: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "close"), for: .normal)
+        button.addTarget(self, action: #selector(CloseAddVC), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func CloseAddVC() {
+        dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .clear
         suitableCititesTableView.delegate = self
         suitableCititesTableView.dataSource = self
-        LayOut()
+        view.backgroundColor = UIColor(white: 1, alpha: 0.99)
+        [closeAddVC, searchTextField, suitableCititesTableView].forEach {view.addSubview($0)}
+
+        closeAddVC.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 25, left: 0, bottom: 0, right: 25), size: .init(width: 27, height: 27))
+        searchTextField.anchor(top: closeAddVC.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 25, left: 25, bottom: 0, right: 25), size: .init(width: 0, height: 50))
+        suitableCititesTableView.anchor(top: searchTextField.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 25, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0))
         
     }
-    
 }

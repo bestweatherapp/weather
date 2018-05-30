@@ -118,7 +118,6 @@ class SettingsViewController: UIViewController {
         view.addSubview(windLabel)
         view.addSubview(pressureLabel)
         view.addSubview(notificationsLabel)
-        view.addSubview(datePickerView)
         view.addSubview(notifyInMorning)
         view.addSubview(onMorning)
         let tempChoose = ["°C", "°F"]
@@ -187,6 +186,7 @@ class SettingsViewController: UIViewController {
         notificationsSwitch.widthAnchor.constraint(equalToConstant: 65).isActive = true
         notificationsSwitch.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
+        view.addSubview(datePickerView)
         datePickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         datePickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         datePickerView.widthAnchor.constraint(equalToConstant: 150).isActive = true
@@ -195,8 +195,8 @@ class SettingsViewController: UIViewController {
 
         closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25).isActive = true
-        closeButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        closeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        closeButton.widthAnchor.constraint(equalToConstant: 27).isActive = true
+        closeButton.heightAnchor.constraint(equalToConstant: 27).isActive = true
         
         tempLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 140).isActive = true
         tempLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true

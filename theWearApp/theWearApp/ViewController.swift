@@ -9,7 +9,6 @@
 import UIKit
 import CoreLocation
 
-// Extension for downloading image from the URL
 extension UIImageView {
     func downloadedFrom(url: URL, contentMode mode: UIViewContentMode = .scaleAspectFit) {
         contentMode = mode
@@ -30,7 +29,8 @@ extension UIImageView {
         downloadedFrom(url: url, contentMode: mode)
     }
 }
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 12
     }
@@ -75,15 +75,27 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.forecastTableView {
-//            updateDetailedView(index: indexPath.row)
-                    UIView.animate(withDuration: 0.8) {
-                        print("1")
-                        self.topStackView.frame.origin.x = -self.view.frame.width
-                        self.middleStackView.frame.origin.x = -self.view.frame.width
-                        self.bottomStackView.frame.origin.x = -self.view.frame.width
-                        self.detailedView.frame.origin.x = 25
-                    }
-
+            morningTempIcon.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![7].icon!)
+            afternoonTempIcon.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![12].icon!)
+            eveningTempIcon.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![18].icon!)
+            nightTempIcon.downloadedFrom(link: "https:" + self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![0].icon!)
+            
+            morningTemp.attributedText = NSAttributedString(string: "\(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![7].temperature!)°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+            
+            afternoonTemp.attributedText = NSAttributedString(string: "\(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![12].temperature!)°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+            
+            eveningTemp.attributedText = NSAttributedString(string: "\(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![18].temperature!)°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+            
+            nightTemp.attributedText = NSAttributedString(string: "\(self.currentForecastCity.AllForecastDay![indexPath.row].AllHours![0].temperature!)°C", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 15)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                UIView.animate(withDuration: 0.5) {
+                    self.topStackView.frame.origin.x = -self.view.frame.width
+                    self.middleStackView.frame.origin.x = -self.view.frame.width
+                    self.bottomStackView.frame.origin.x = -self.view.frame.width
+                    self.detailedView.frame.origin.x = 25
+                }
+            }
         } else {
             self.forecastTableView.isUserInteractionEnabled = true
             self.forecastCollectionView.isUserInteractionEnabled = true
@@ -104,36 +116,19 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             self.blurEffectView.isHidden = true // Нужно улучшить, потому что колхоз
         }
     }
-//
-//    func updateDetailedView(index: Int) {
-//
-//                        let tempIcons = [("https:" + self.currentForecastCity.AllForecastDay![index].AllHours![7].icon!), ("https:" + self.currentForecastCity.AllForecastDay![index].AllHours![12].icon!), ("https:" + self.currentForecastCity.AllForecastDay![index].AllHours![18].icon!), ("https:" + self.currentForecastCity.AllForecastDay![index].AllHours![0].icon!)]
-//                        let temps = ["\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![7].temperature!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![12].temperature!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![18].temperature!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![0].temperature!)))°C"]
-//                        let tempsFeelsLike = ["\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![7].feelslike!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![12].feelslike!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![18].feelslike!)))°C", "\(Int(round(self.currentForecastCity.AllForecastDay![index].AllHours![0].feelslike!)))°C"]
-//
-//
-//                            self.morningTempIconForDetailedWindow.downloadedFrom(link: tempIcons[0])
-//                            self.morningTempForDetailedWindow.attributedText = NSAttributedString(string: temps[0], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-//                            self.morningTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: tempsFeelsLike[0], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-//
-//                            self.afternoonTempIconForDetailedWindow.downloadedFrom(link: tempIcons[1])
-//                            self.afternoonTempForDetailedWindow.attributedText = NSAttributedString(string: temps[1], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-//                            self.afternoonTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: tempsFeelsLike[1], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-//
-//                            self.eveningTempIconForDetailedWindow.downloadedFrom(link: tempIcons[2])
-//                            self.eveningTempForDetailedWindow.attributedText = NSAttributedString(string: temps[2], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-//                            self.eveningTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: tempsFeelsLike[2], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-//                            print("check")
-//                            self.nightTempIconForDetailedWindow.downloadedFrom(link: tempIcons[3])
-//                            self.nightTempForDetailedWindow.attributedText = NSAttributedString(string: temps[3], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-//                            self.nightTempFeelsLikeForDetailedWindow.attributedText = NSAttributedString(string: tempsFeelsLike[3], attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Medium", size: 18)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-//
-//    }
-    
+ 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(70)
     }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            cities?.remove(at: indexPath.row)
+            self.favouriteCitiesTableView.reloadData()
+        }
+    }
+    
+    
 }
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
@@ -141,17 +136,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     let hour = Calendar.current.component(.hour, from: Date()) // Current Hour
     
-    var ResultForecastCity = ForecastCity()
-    var row : Int = 0
     var allDates = [String](repeating: "", count: 7)
     var allTemps = [String](repeating: "", count: 7)
     var allTempsIcons = [String](repeating: "", count: 7)
-    // Добавил такую же переменную как и AllTemps и AllDates
     var allHours = [String](repeating: "", count: 12)
     var allHourlyTemps = [String](repeating: "", count: 12)
     var allHourlyTempsIcons = [String](repeating: "", count: 12)
     var currentForecastCity = ForecastCity() // полная информация
-    var CitySelectedFromPreferences = ""
     
     private let slideOutMenu: UIView = {
         let view = UIView()
@@ -159,6 +150,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         view.backgroundColor = UIColor(white: 1, alpha: 0.9)
         return view
     }()
+    
+    private let addCityButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "add"), for: .normal)
+        button.addTarget(self, action: #selector(addCity), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func addCity() {
+        let add = AddCityViewController()
+        add.modalPresentationStyle = .overFullScreen
+        present(add, animated: true, completion: nil)
+    }
     
     private let settingsButton: UIButton = {
         let button = UIButton()
@@ -177,179 +181,43 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     private let favouriteCitiesTableView: UITableView = {
         let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
         return tableView
+    }()
+    
+    private let detailedView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        view.layer.cornerRadius = 30
+        return view
     }()
     
     private let updateWithCurrentLocationButton: UIButton = {
         let button = UIButton()
         button.setAttributedTitle(NSMutableAttributedString(string: "Current location", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 15), NSAttributedStringKey.foregroundColor:UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 100)]), for: .normal)
         button.isSelected = false
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(UpdateWithCurrentLocation), for: .touchUpInside)
         return button
     }()
     
     private let backgroundImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "5704"))
-        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
     private let splashScreen: UIView = {
         let view = UIView()
         view.isHidden = false
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         return view
     
     }()
-    
-    private let detailedView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 30
-        view.backgroundColor = UIColor(white: 1, alpha: 0.9)
-        return view
-    }()
-    
-    private let exampleDescription: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.numberOfLines = 4
-        text.translatesAutoresizingMaskIntoConstraints = false
-        text.attributedText = NSAttributedString(string: "-\n-\n-\n-", attributes: nil)
-        return text
-    }()
-    
-    // Morning
-    private let morningTempForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let morningTempFeelsLikeForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let morningTempDescriptionForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "Morning", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let morningTempIconForDetailedWindow: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
-    // Afternoon
-    private let afternoonTempForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let afternoonTempFeelsLikeForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let afternoonTempDescriptionForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "Afternoon", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let afternoonTempIconForDetailedWindow: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "page2"))
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
-    // Evening
-    private let eveningTempForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let eveningTempFeelsLikeForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let eveningTempDescriptionForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "Evening", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let eveningTempIconForDetailedWindow: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "page2"))
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
-    // Night
-    private let nightTempForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let nightTempFeelsLikeForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let nightTempDescriptionForDetailedWindow: UILabel = {
-        let text = UILabel()
-        text.textAlignment = .center
-        text.attributedText = NSAttributedString(string: "Night", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Light", size: 13)!, NSAttributedStringKey.foregroundColor:UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80)])
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
-    private let nightTempIconForDetailedWindow: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "page2"))
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
-    
-    private let scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
-        return view
-    }()
-    
-    private let closeDetailedViewButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.isSelected = false
-        button.addTarget(self, action: #selector(CloseDetailedView), for: .touchUpInside)
-        button.setImage(UIImage(named: "close"), for: .normal)
-        return button
-    }()
-    
+        
     private let menuButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "menu"), for: .normal)
         button.isSelected = false
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(OpenSlideOutMenu), for: .touchUpInside)
         return button
     }()
@@ -358,14 +226,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let button = UIButton()
         button.setImage(UIImage(named: "search"), for: .normal)
         button.isSelected = false
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(OpenSearchVC), for: .touchUpInside)
         return button
     }()
     
     private let currentLocation: UILabel = {
         let text = UILabel()
-        text.translatesAutoresizingMaskIntoConstraints = false
         text.textAlignment = .center
         text.backgroundColor = .clear
         return text
@@ -373,7 +239,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
    
     private let currentTemperature: UILabel = {
         let text = UILabel()
-        text.translatesAutoresizingMaskIntoConstraints = false
         text.textAlignment = .center
         text.backgroundColor = .clear
         return text
@@ -381,7 +246,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     private let currentCondition: UILabel = {
         let text = UILabel()
-        text.translatesAutoresizingMaskIntoConstraints = false
         text.textAlignment = .center
         text.backgroundColor = .clear
         return text
@@ -389,7 +253,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     private let currentAdvice: UILabel = {
         let text = UILabel()
-        text.translatesAutoresizingMaskIntoConstraints = false
         text.textAlignment = .center
         text.backgroundColor = .clear
         text.numberOfLines = 3
@@ -398,7 +261,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     private let forecastTableView: UITableView = {
         let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.layer.cornerRadius = 30
         tableView.backgroundColor = UIColor(white: 1, alpha: 0.9)
         tableView.showsVerticalScrollIndicator = false
@@ -409,7 +271,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.layer.cornerRadius = 25
         collectionView.backgroundColor = UIColor(white: 1, alpha: 0.9)
         collectionView.isScrollEnabled = true
@@ -419,24 +280,75 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     private var topStackView: UIStackView = {
         let view = UIStackView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .horizontal
         return view
     }()
     
     private var middleStackView: UIStackView = {
         let view = UIStackView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         return view
     }()
     
     private var bottomStackView: UIStackView = {
         let view = UIStackView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         return view
     }()
+    
+    private let morningTempIcon: UIImageView = {
+        let image = UIImageView()
+        return image
+    }()
+    private let afternoonTempIcon: UIImageView = {
+        let image = UIImageView()
+        return image
+    }()
+    private let eveningTempIcon: UIImageView = {
+        let image = UIImageView()
+        return image
+    }()
+    private let nightTempIcon: UIImageView = {
+        let image = UIImageView()
+        return image
+    }()
+    private let morningTemp: UILabel = {
+        let text = UILabel()
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
+    }()
+    private let afternoonTemp: UILabel = {
+        let text = UILabel()
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
+    }()
+    private let eveningTemp: UILabel = {
+        let text = UILabel()
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
+    }()
+    private let nightTemp: UILabel = {
+        let text = UILabel()
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
+    }()
+    
+    private let closeDetailedViewButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "close"), for: .normal)
+        button.addTarget(self, action: #selector(CloseDetailedView), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func CloseDetailedView() {
+        UIView.animate(withDuration: 0.5) {
+            self.detailedView.frame.origin.x = self.view.frame.width + 50
+            self.topStackView.frame.origin.x = 25
+            self.middleStackView.frame.origin.x = 25
+            self.bottomStackView.frame.origin.x = 25
+        }
+    }
+    
     
     // Methods
     
@@ -466,14 +378,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
         present(searchVC, animated: true, completion: nil)
     }
-    @objc func CloseDetailedView() {
-        UIView.animate(withDuration: 0.4) {
-            self.topStackView.frame.origin.x = 25
-            self.middleStackView.frame.origin.x = 25
-            self.bottomStackView.frame.origin.x = 25
-            self.detailedView.frame.origin.x = self.view.frame.width + 25
-        }
-    }
+    
     @objc func OpenSlideOutMenu() {
         self.forecastTableView.isUserInteractionEnabled = false
         self.forecastCollectionView.isUserInteractionEnabled = false
@@ -544,53 +449,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         return blur
     }()
     
-    private let detailedTop: UIView =  {
-        let view = UIView()
-        return view
-    }()
-    
     private func LayOut() {
-        view.addSubview(detailedView)
-        slideOutMenu.addSubview(favouriteCitiesTableView)
-        slideOutMenu.addSubview(updateWithCurrentLocationButton)
-        slideOutMenu.addSubview(updateWithCurrentLocationButton)
-        
-        updateWithCurrentLocationButton.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        
-        
-        detailedView.addSubview(closeDetailedViewButton)
-        detailedView.addSubview(scrollView)
-        scrollView.addSubview(detailedTop)
-        scrollView.addSubview(exampleDescription)
+    
         bottomStackView.addArrangedSubview(forecastCollectionView)
         bottomStackView.addArrangedSubview(forecastTableView)
         view.addSubview(bottomStackView)
-        
-        detailedTop.addSubview(morningTempForDetailedWindow)
-        detailedTop.addSubview(morningTempIconForDetailedWindow)
-        detailedTop.addSubview(morningTempDescriptionForDetailedWindow)
-        detailedTop.addSubview(morningTempFeelsLikeForDetailedWindow)
-        
-        detailedTop.addSubview(afternoonTempForDetailedWindow)
-        detailedTop.addSubview(afternoonTempIconForDetailedWindow)
-        detailedTop.addSubview(afternoonTempDescriptionForDetailedWindow)
-        detailedTop.addSubview(afternoonTempFeelsLikeForDetailedWindow)
-        
-        detailedTop.addSubview(eveningTempForDetailedWindow)
-        detailedTop.addSubview(eveningTempIconForDetailedWindow)
-        detailedTop.addSubview(eveningTempDescriptionForDetailedWindow)
-        detailedTop.addSubview(eveningTempFeelsLikeForDetailedWindow)
-        
-        detailedTop.addSubview(nightTempForDetailedWindow)
-        detailedTop.addSubview(nightTempIconForDetailedWindow)
-        detailedTop.addSubview(nightTempDescriptionForDetailedWindow)
-        detailedTop.addSubview(nightTempFeelsLikeForDetailedWindow)
-        
-        detailedTop.topAnchor.constraint(equalTo: detailedView.topAnchor).isActive = true
-        detailedTop.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor).isActive = true
-        detailedTop.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor).isActive = true
-        detailedTop.heightAnchor.constraint(equalToConstant: 115).isActive = true
-        
+    
         middleStackView.addArrangedSubview(currentTemperature)
         middleStackView.addArrangedSubview(currentCondition)
         middleStackView.addArrangedSubview(currentAdvice)
@@ -606,267 +470,73 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         blurEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         self.blurEffectView.isHidden = true
-        slideOutMenu.addSubview(settingsButton)
-        
-        settingsButton.topAnchor.constraint(equalTo: slideOutMenu.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        settingsButton.leadingAnchor.constraint(equalTo: slideOutMenu.leadingAnchor, constant: 25).isActive = true
-        settingsButton.widthAnchor.constraint(equalToConstant: 35).isActive = true
-        settingsButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
         
         view.addSubview(slideOutMenu)
+        slideOutMenu.addSubview(favouriteCitiesTableView)
+        slideOutMenu.addSubview(updateWithCurrentLocationButton)
+        slideOutMenu.addSubview(settingsButton)
+        slideOutMenu.addSubview(addCityButton)
+        view.addSubview(detailedView)
+        [morningTempIcon, afternoonTempIcon, eveningTempIcon, nightTempIcon, closeDetailedViewButton, morningTemp, afternoonTemp, eveningTemp, nightTemp].forEach { detailedView.addSubview($0)}
         
+        morningTempIcon.anchor(top: detailedView.topAnchor, leading: detailedView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 125, left: 33, bottom: 0, right: 0), size: .init(width: 40, height: 40))
+        afternoonTempIcon.anchor(top: detailedView.topAnchor, leading: morningTempIcon.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 125, left: 33, bottom: 0, right: 0), size: .init(width: 40, height: 40))
+        eveningTempIcon.anchor(top: detailedView.topAnchor, leading: afternoonTempIcon.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 125, left: 33, bottom: 0, right: 0), size: .init(width: 40, height: 40))
+        nightTempIcon.anchor(top: detailedView.topAnchor, leading: eveningTempIcon.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 125, left: 33, bottom: 0, right: 0), size: .init(width: 40, height: 40))
+        
+        morningTemp.centerXAnchor.constraint(equalTo: morningTempIcon.centerXAnchor).isActive = true
+        morningTemp.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        morningTemp.topAnchor.constraint(equalTo: morningTempIcon.bottomAnchor, constant: 25).isActive = true
+        afternoonTemp.centerXAnchor.constraint(equalTo: afternoonTempIcon.centerXAnchor).isActive = true
+        afternoonTemp.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        afternoonTemp.topAnchor.constraint(equalTo: afternoonTempIcon.bottomAnchor, constant: 25).isActive = true
+        eveningTemp.centerXAnchor.constraint(equalTo: eveningTempIcon.centerXAnchor).isActive = true
+        eveningTemp.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        eveningTemp.topAnchor.constraint(equalTo: eveningTempIcon.bottomAnchor, constant: 25).isActive = true
+        nightTemp.centerXAnchor.constraint(equalTo: nightTempIcon.centerXAnchor).isActive = true
+        nightTemp.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        nightTemp.topAnchor.constraint(equalTo: nightTempIcon.bottomAnchor, constant: 25).isActive = true
+        
+        closeDetailedViewButton.anchor(top: detailedView.topAnchor, leading: nil, bottom: nil, trailing: detailedView.trailingAnchor, padding: .init(top: 25, left: 0, bottom: 0, right: 25), size: .init(width: 25, height: 25))
+        
+        detailedView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 25, left: view.frame.width + 25, bottom: 25, right: 0), size: .init(width: view.frame.width-50, height: 0))
+        
+        
+        
+        view.addSubview(splashScreen)
+        
+        splashScreen.addSubview(theLabel)
+        splashScreen.addSubview(weaLabel)
+        splashScreen.addSubview(rLabel)
+        
+        weaLabel.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 100, left: 45, bottom: 0, right: 0), size: .init(width: 0, height: 0))
+        theLabel.anchor(top: view.topAnchor, leading: weaLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 100, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0))
+        rLabel.anchor(top: view.topAnchor, leading: theLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 100, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0))
+        splashScreen.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0))
+       
         switch UIScreen.main.nativeBounds.height {
         case 1136:
             print("iPhone 5")
         case 1334:
             print("iPhone 6")
             
-            exampleDescription.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 310).isActive = true
-            exampleDescription.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 60).isActive = true
-            exampleDescription.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -60).isActive = true
-            exampleDescription.heightAnchor.constraint(equalToConstant: 310).isActive = true
+           slideOutMenu.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: -290, bottom: 0, right: 0), size: .init(width: 250, height: 0))
+            favouriteCitiesTableView.anchor(top: slideOutMenu.topAnchor, leading: slideOutMenu.leadingAnchor, bottom: slideOutMenu.bottomAnchor, trailing: slideOutMenu.trailingAnchor, padding: .init(top: 150, left: 0, bottom: 150, right: 0), size: .init(width: 0, height: 0))
+            updateWithCurrentLocationButton.anchor(top: nil, leading: slideOutMenu.leadingAnchor, bottom: favouriteCitiesTableView.topAnchor, trailing: slideOutMenu.trailingAnchor, padding: .init(top: 0, left: 15, bottom: 15, right: 15), size: .init(width: 0, height: 15))
+            settingsButton.anchor(top: slideOutMenu.safeAreaLayoutGuide.topAnchor, leading: slideOutMenu.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 10, left: 25, bottom: 0, right: 0), size: .init(width: 35, height: 35))
+            addCityButton.anchor(top: slideOutMenu.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: slideOutMenu.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 25), size: .init(width: 35, height: 35))
             
-            slideOutMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -290).isActive = true
-            slideOutMenu.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            slideOutMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-            slideOutMenu.widthAnchor.constraint(equalToConstant: 250).isActive = true
-            
-            closeDetailedViewButton.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor, constant: -25).isActive = true
-            closeDetailedViewButton.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 25).isActive = true
-            closeDetailedViewButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
-            closeDetailedViewButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
-            
-            favouriteCitiesTableView.topAnchor.constraint(equalTo: slideOutMenu.topAnchor, constant: 150).isActive = true
-            favouriteCitiesTableView.bottomAnchor.constraint(equalTo: slideOutMenu.bottomAnchor, constant: -150).isActive = true
-            favouriteCitiesTableView.leadingAnchor.constraint(equalTo: slideOutMenu.leadingAnchor, constant: 50).isActive = true
-            favouriteCitiesTableView.trailingAnchor.constraint(equalTo: slideOutMenu.trailingAnchor, constant: -50).isActive = true
-            
-            updateWithCurrentLocationButton.bottomAnchor.constraint(equalTo: favouriteCitiesTableView.topAnchor, constant: -10).isActive = true
-            updateWithCurrentLocationButton.leadingAnchor.constraint(equalTo: slideOutMenu.leadingAnchor, constant: 15).isActive = true
-            updateWithCurrentLocationButton.trailingAnchor.constraint(equalTo: slideOutMenu.trailingAnchor, constant: -15).isActive = true
-            updateWithCurrentLocationButton.widthAnchor.constraint(equalToConstant: 15).isActive = true
-            
-            //----------------------Detailed View
-            
-            morningTempIconForDetailedWindow.topAnchor.constraint(equalTo: detailedTop.topAnchor, constant: 20).isActive = true
-            morningTempIconForDetailedWindow.leadingAnchor.constraint(equalTo: detailedTop.leadingAnchor, constant: 33).isActive = true
-            morningTempIconForDetailedWindow.bottomAnchor.constraint(equalTo: detailedTop.bottomAnchor, constant: -10).isActive = true
-            morningTempIconForDetailedWindow.widthAnchor.constraint(equalToConstant: 40).isActive = true
-            morningTempIconForDetailedWindow.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            
-            afternoonTempIconForDetailedWindow.topAnchor.constraint(equalTo: detailedTop.topAnchor, constant: 20).isActive = true
-            afternoonTempIconForDetailedWindow.leadingAnchor.constraint(equalTo: morningTempIconForDetailedWindow.trailingAnchor, constant: 33).isActive = true
-            afternoonTempIconForDetailedWindow.bottomAnchor.constraint(equalTo: detailedTop.bottomAnchor, constant: -10).isActive = true
-            afternoonTempIconForDetailedWindow.widthAnchor.constraint(equalToConstant: 40).isActive = true
-            afternoonTempIconForDetailedWindow.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            
-            eveningTempIconForDetailedWindow.topAnchor.constraint(equalTo: detailedTop.topAnchor, constant: 20).isActive = true
-            eveningTempIconForDetailedWindow.leadingAnchor.constraint(equalTo: afternoonTempIconForDetailedWindow.trailingAnchor, constant: 33).isActive = true
-            eveningTempIconForDetailedWindow.bottomAnchor.constraint(equalTo: detailedTop.bottomAnchor, constant: -10).isActive = true
-            eveningTempIconForDetailedWindow.widthAnchor.constraint(equalToConstant: 40).isActive = true
-            eveningTempIconForDetailedWindow.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            
-            nightTempIconForDetailedWindow.topAnchor.constraint(equalTo: detailedTop.topAnchor, constant: 20).isActive = true
-            nightTempIconForDetailedWindow.leadingAnchor.constraint(equalTo: eveningTempIconForDetailedWindow.trailingAnchor, constant: 33).isActive = true
-            nightTempIconForDetailedWindow.bottomAnchor.constraint(equalTo: detailedTop.bottomAnchor, constant: -10).isActive = true
-            nightTempIconForDetailedWindow.widthAnchor.constraint(equalToConstant: 40).isActive = true
-            nightTempIconForDetailedWindow.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            //--------------
-            morningTempForDetailedWindow.topAnchor.constraint(equalTo: morningTempIconForDetailedWindow.bottomAnchor, constant: 5).isActive = true
-            morningTempForDetailedWindow.centerXAnchor.constraint(equalTo: morningTempIconForDetailedWindow.centerXAnchor).isActive = true
-            morningTempForDetailedWindow.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            morningTempForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            afternoonTempForDetailedWindow.topAnchor.constraint(equalTo: afternoonTempIconForDetailedWindow.bottomAnchor, constant: 5).isActive = true
-            afternoonTempForDetailedWindow.centerXAnchor.constraint(equalTo: afternoonTempIconForDetailedWindow.centerXAnchor).isActive = true
-            afternoonTempForDetailedWindow.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            afternoonTempForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            eveningTempForDetailedWindow.topAnchor.constraint(equalTo: eveningTempIconForDetailedWindow.bottomAnchor, constant: 5).isActive = true
-            eveningTempForDetailedWindow.centerXAnchor.constraint(equalTo: eveningTempIconForDetailedWindow.centerXAnchor).isActive = true
-            eveningTempForDetailedWindow.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            eveningTempForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            nightTempForDetailedWindow.topAnchor.constraint(equalTo: nightTempIconForDetailedWindow.bottomAnchor, constant: 5).isActive = true
-            nightTempForDetailedWindow.centerXAnchor.constraint(equalTo: nightTempIconForDetailedWindow.centerXAnchor).isActive = true
-            nightTempForDetailedWindow.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            nightTempForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            //--------------
-            
-            //---------------
-            morningTempFeelsLikeForDetailedWindow.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 240).isActive = true
-            morningTempFeelsLikeForDetailedWindow.centerXAnchor.constraint(equalTo: morningTempIconForDetailedWindow.centerXAnchor).isActive = true
-            morningTempFeelsLikeForDetailedWindow.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            morningTempFeelsLikeForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            afternoonTempFeelsLikeForDetailedWindow.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 240).isActive = true
-            afternoonTempFeelsLikeForDetailedWindow.centerXAnchor.constraint(equalTo: afternoonTempForDetailedWindow.centerXAnchor).isActive = true
-            afternoonTempFeelsLikeForDetailedWindow.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            afternoonTempFeelsLikeForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            eveningTempFeelsLikeForDetailedWindow.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 240).isActive = true
-            eveningTempFeelsLikeForDetailedWindow.centerXAnchor.constraint(equalTo: eveningTempIconForDetailedWindow.centerXAnchor).isActive = true
-            eveningTempFeelsLikeForDetailedWindow.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            eveningTempFeelsLikeForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            nightTempFeelsLikeForDetailedWindow.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 240).isActive = true
-            nightTempFeelsLikeForDetailedWindow.centerXAnchor.constraint(equalTo: nightTempIconForDetailedWindow.centerXAnchor).isActive = true
-            nightTempFeelsLikeForDetailedWindow.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            nightTempFeelsLikeForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            //--------------
-            morningTempDescriptionForDetailedWindow.topAnchor.constraint(equalTo: morningTempForDetailedWindow.bottomAnchor, constant: 10).isActive = true
-            morningTempDescriptionForDetailedWindow.centerXAnchor.constraint(equalTo: morningTempForDetailedWindow.centerXAnchor).isActive = true
-            morningTempDescriptionForDetailedWindow.widthAnchor.constraint(equalToConstant: 55).isActive = true
-            morningTempDescriptionForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            afternoonTempDescriptionForDetailedWindow.topAnchor.constraint(equalTo: afternoonTempForDetailedWindow.bottomAnchor, constant: 10).isActive = true
-            afternoonTempDescriptionForDetailedWindow.centerXAnchor.constraint(equalTo: afternoonTempForDetailedWindow.centerXAnchor).isActive = true
-            afternoonTempDescriptionForDetailedWindow.widthAnchor.constraint(equalToConstant: 55).isActive = true
-            afternoonTempDescriptionForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            eveningTempDescriptionForDetailedWindow.topAnchor.constraint(equalTo: eveningTempForDetailedWindow.bottomAnchor, constant: 10).isActive = true
-            eveningTempDescriptionForDetailedWindow.centerXAnchor.constraint(equalTo: eveningTempForDetailedWindow.centerXAnchor).isActive = true
-            eveningTempDescriptionForDetailedWindow.widthAnchor.constraint(equalToConstant: 55).isActive = true
-            eveningTempDescriptionForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            nightTempDescriptionForDetailedWindow.topAnchor.constraint(equalTo: nightTempForDetailedWindow.bottomAnchor, constant: 10).isActive = true
-            nightTempDescriptionForDetailedWindow.centerXAnchor.constraint(equalTo: nightTempForDetailedWindow.centerXAnchor).isActive = true
-            nightTempDescriptionForDetailedWindow.widthAnchor.constraint(equalToConstant: 55).isActive = true
-            nightTempDescriptionForDetailedWindow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            //----------------------]
-            let DescriptionLine1 = UIBezierPath()
-            DescriptionLine1.move(to: CGPoint(x: 25, y: 290))
-            DescriptionLine1.addLine(to: CGPoint(x: 130, y: 290))
-            // Create a `CAShapeLayer` that uses that `UIBezierPath`:
-            let shapeLayer5 = CAShapeLayer()
-            shapeLayer5.path = DescriptionLine1.cgPath
-            shapeLayer5.strokeColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80).cgColor
-            shapeLayer5.fillColor = UIColor.clear.cgColor
-            shapeLayer5.lineWidth = 1
-            detailedView.layer.addSublayer(shapeLayer5)
-            //-------------
-            let descp = UILabel()
-            descp.translatesAutoresizingMaskIntoConstraints = false
-            descp.attributedText = NSAttributedString(string: "Description", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Ultralight", size: 13)!])
-            detailedView.addSubview(descp)
-            descp.centerXAnchor.constraint(equalTo: detailedView.centerXAnchor).isActive = true
-            descp.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 280).isActive = true
-            //-------------
-            let DescriptionLine2 = UIBezierPath()
-            DescriptionLine2.move(to: CGPoint(x: 195, y: 290))
-            DescriptionLine2.addLine(to: CGPoint(x: 300, y: 290))
-            // Create a `CAShapeLayer` that uses that `UIBezierPath`:
-            let shapeLayer32 = CAShapeLayer()
-            shapeLayer32.path = DescriptionLine2.cgPath
-            shapeLayer32.strokeColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80).cgColor
-            shapeLayer32.fillColor = UIColor.clear.cgColor
-            shapeLayer32.lineWidth = 1
-            detailedView.layer.addSublayer(shapeLayer32)
-            //-------------
-           
-            
-            //-------Lines
-            let topLine = UIBezierPath()
-            topLine.move(to: CGPoint(x: 25, y: 85))
-            topLine.addLine(to: CGPoint(x: 300, y: 85))
-            // Create a `CAShapeLayer` that uses that `UIBezierPath`:
-            let shapeLayer1 = CAShapeLayer()
-            shapeLayer1.path = topLine.cgPath
-            shapeLayer1.strokeColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80).cgColor
-            shapeLayer1.fillColor = UIColor.clear.cgColor
-            shapeLayer1.lineWidth = 1
-            detailedView.layer.addSublayer(shapeLayer1)
-            //-------------
-            let feelsLikeLine1 = UIBezierPath()
-            feelsLikeLine1.move(to: CGPoint(x: 25, y: 225))
-            feelsLikeLine1.addLine(to: CGPoint(x: 135, y: 225))
-            // Create a `CAShapeLayer` that uses that `UIBezierPath`:
-            let shapeLayer2 = CAShapeLayer()
-            shapeLayer2.path = feelsLikeLine1.cgPath
-            shapeLayer2.strokeColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80).cgColor
-            shapeLayer2.fillColor = UIColor.clear.cgColor
-            shapeLayer2.lineWidth = 1
-            detailedView.layer.addSublayer(shapeLayer2)
-            //-------------
-            let feelsLike = UILabel()
-            feelsLike.translatesAutoresizingMaskIntoConstraints = false
-            feelsLike.attributedText = NSAttributedString(string: "Feels like", attributes: [NSAttributedStringKey.font: UIFont.init(name: "SFProDisplay-Ultralight", size: 13)!])
-            detailedView.addSubview(feelsLike)
-            feelsLike.centerXAnchor.constraint(equalTo: detailedView.centerXAnchor).isActive = true
-            feelsLike.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 215).isActive = true
-            //-------------
-            let feelsLikeLine2 = UIBezierPath()
-            feelsLikeLine2.move(to: CGPoint(x: 190, y: 225))
-            feelsLikeLine2.addLine(to: CGPoint(x: 300, y: 225))
-            // Create a `CAShapeLayer` that uses that `UIBezierPath`:
-            let shapeLayer3 = CAShapeLayer()
-            shapeLayer3.path = feelsLikeLine2.cgPath
-            shapeLayer3.strokeColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 80).cgColor
-            shapeLayer3.fillColor = UIColor.clear.cgColor
-            shapeLayer3.lineWidth = 1
-            detailedView.layer.addSublayer(shapeLayer3)
-            //-------------
-            
-            scrollView.topAnchor.constraint(equalTo: detailedView.topAnchor, constant: 75).isActive = true
-            scrollView.leadingAnchor.constraint(equalTo: detailedView.leadingAnchor).isActive = true
-            scrollView.trailingAnchor.constraint(equalTo: detailedView.trailingAnchor).isActive = true
-            scrollView.bottomAnchor.constraint(equalTo: detailedView.bottomAnchor, constant: -75).isActive = true
-            
-            bottomStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25).isActive = true
-            bottomStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25).isActive = true
-            bottomStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25).isActive = true
-            bottomStackView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-            
-            middleStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25).isActive = true
-            middleStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25).isActive = true
-            middleStackView.bottomAnchor.constraint(equalTo: bottomStackView.topAnchor, constant: -5).isActive = true
-            middleStackView.heightAnchor.constraint(equalToConstant: 210).isActive = true
-            
-            currentTemperature.topAnchor.constraint(equalTo: middleStackView.topAnchor, constant: 10).isActive = true
-            currentTemperature.bottomAnchor.constraint(equalTo: currentCondition.topAnchor, constant: -5).isActive = true
-            currentTemperature.leadingAnchor.constraint(equalTo: middleStackView.leadingAnchor).isActive = true
-            currentTemperature.trailingAnchor.constraint(equalTo: middleStackView.trailingAnchor).isActive = true
-            
-            currentCondition.bottomAnchor.constraint(equalTo: currentAdvice.topAnchor).isActive = true
-            currentCondition.leadingAnchor.constraint(equalTo: middleStackView.leadingAnchor).isActive = true
-            currentCondition.trailingAnchor.constraint(equalTo: middleStackView.trailingAnchor).isActive = true
-            currentCondition.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            
-            currentAdvice.bottomAnchor.constraint(equalTo: middleStackView.bottomAnchor).isActive = true
-            currentAdvice.leadingAnchor.constraint(equalTo: middleStackView.leadingAnchor).isActive = true
-            currentAdvice.trailingAnchor.constraint(equalTo: middleStackView.trailingAnchor).isActive = true
-            currentAdvice.heightAnchor.constraint(equalToConstant: 70).isActive = true
-            
-            topStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
-            topStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25).isActive = true
-            topStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25).isActive = true
-            topStackView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            
-            forecastCollectionView.leadingAnchor.constraint(equalTo: bottomStackView.leadingAnchor).isActive = true
-            forecastCollectionView.trailingAnchor.constraint(equalTo: bottomStackView.trailingAnchor).isActive = true
-            forecastCollectionView.bottomAnchor.constraint(equalTo: forecastTableView.topAnchor, constant: -25).isActive = true
-            forecastCollectionView.heightAnchor.constraint(equalToConstant: 75).isActive = true
-            forecastTableView.bottomAnchor.constraint(equalTo: bottomStackView.bottomAnchor).isActive = true
-            forecastTableView.leadingAnchor.constraint(equalTo: bottomStackView.leadingAnchor).isActive = true
-            forecastTableView.trailingAnchor.constraint(equalTo: bottomStackView.trailingAnchor).isActive = true
-            forecastTableView.heightAnchor.constraint(equalToConstant: 180).isActive = true
-            menuButton.leadingAnchor.constraint(equalTo: topStackView.leadingAnchor).isActive = true
-            menuButton.topAnchor.constraint(equalTo: topStackView.topAnchor).isActive = true
-            menuButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-            menuButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            searchButton.trailingAnchor.constraint(equalTo: topStackView.trailingAnchor).isActive = true
-            searchButton.topAnchor.constraint(equalTo: topStackView.topAnchor).isActive = true
-            searchButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-            searchButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            
-            currentLocation.topAnchor.constraint(equalTo: topStackView.topAnchor).isActive = true
-            currentLocation.widthAnchor.constraint(equalToConstant: 185).isActive = true
-            currentLocation.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            currentLocation.centerXAnchor.constraint(equalTo: topStackView.centerXAnchor).isActive = true
-            detailedView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width + 25).isActive = true
-            detailedView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25).isActive = true
-            detailedView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25).isActive = true
-            detailedView.widthAnchor.constraint(equalToConstant: view.frame.width - 50).isActive = true
+            topStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 5, left: 25, bottom: 0, right: 25), size: .init(width: 0, height: 40))
+            middleStackView.anchor(top: nil, leading: view.leadingAnchor, bottom: bottomStackView.topAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 25, bottom: 5, right: 25), size: .init(width: 0, height: 210))
+            bottomStackView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 25, bottom: 25, right: 25), size: .init(width: 0, height: 300))
+            currentTemperature.anchor(top: middleStackView.topAnchor, leading: middleStackView.leadingAnchor, bottom: currentCondition.topAnchor, trailing: middleStackView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 5, right: 0), size: .init(width: 0, height: 0))
+            currentCondition.anchor(top: nil, leading: middleStackView.leadingAnchor, bottom: currentAdvice.topAnchor, trailing: middleStackView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 40))
+            currentAdvice.anchor(top: nil, leading: middleStackView.leadingAnchor, bottom: middleStackView.bottomAnchor, trailing: middleStackView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 70))
+            forecastCollectionView.anchor(top: nil, leading: bottomStackView.leadingAnchor, bottom: forecastTableView.topAnchor, trailing: bottomStackView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 25, right: 0), size: .init(width: 0, height: 75))
+            forecastTableView.anchor(top: nil, leading: bottomStackView.leadingAnchor, bottom: bottomStackView.bottomAnchor, trailing: bottomStackView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 100))
+            menuButton.anchor(top: topStackView.topAnchor, leading: topStackView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 40, height: 40))
+            searchButton.anchor(top: topStackView.topAnchor, leading: nil, bottom: nil, trailing: topStackView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 40, height: 40))
+            currentLocation.anchor(top: topStackView.topAnchor, leading: menuButton.trailingAnchor, bottom: nil, trailing: searchButton.leadingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 40))
             
         case 2208:
             print("iPhone 6+")
@@ -1098,22 +768,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         forecastTableView.register(DayCell.self, forCellReuseIdentifier: "tableViewcell")
         forecastCollectionView.register(HourCell.self, forCellWithReuseIdentifier: "collectionViewCell")
         LayOut()
-        view.addSubview(splashScreen)
-        
-        splashScreen.addSubview(theLabel)
-        splashScreen.addSubview(weaLabel)
-        splashScreen.addSubview(rLabel)
-        
-        weaLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        weaLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 45).isActive = true
-        theLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        theLabel.leadingAnchor.constraint(equalTo: weaLabel.trailingAnchor).isActive = true
-        rLabel.leadingAnchor.constraint(equalTo: theLabel.trailingAnchor).isActive = true
-        rLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        splashScreen.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        splashScreen.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        splashScreen.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        splashScreen.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(Animation), userInfo: nil, repeats: false)
         Animate()
@@ -1147,6 +801,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+}
+extension UIView {
+    func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, padding: UIEdgeInsets = .zero, size: CGSize = .zero) {
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let top = top {
+            topAnchor.constraint(equalTo: top, constant: padding.top).isActive = true
+        }
+        if let leading = leading {
+            leadingAnchor.constraint(equalTo: leading, constant: padding.left).isActive = true
+        }
+        if let bottom = bottom {
+            bottomAnchor.constraint(equalTo: bottom, constant: -padding.bottom).isActive = true
+        }
+        if let trailing = trailing {
+            trailingAnchor.constraint(equalTo: trailing, constant: -padding.right).isActive = true
+        }
+        if size.width != 0 {
+            widthAnchor.constraint(equalToConstant: size.width).isActive = true
+        }
+        if size.height != 0 {
+            heightAnchor.constraint(equalToConstant: size.height).isActive = true
+        }
+        
     }
 }
 
